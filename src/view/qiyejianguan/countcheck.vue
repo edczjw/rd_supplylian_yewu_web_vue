@@ -153,19 +153,6 @@ export default {
       this.userName = userName;
     },
 
-    // 退出，跳转至登陆页面
-    goBack() {
-      var _this = this;
-      this.$confirm("确认退出吗?", "提示", {
-        //type: 'warning'
-      })
-        .then(() => {
-          window.sessionStorage.removeItem("name"); //清除session中name
-          this.$router.push("/login");
-        })
-        .catch(() => {});
-    },
-
     // 搜索功能
     search() {
       this.getlist();

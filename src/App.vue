@@ -10,7 +10,7 @@ export default {
 }
 </script>
 
-<style>
+<style lang="less">
 /* 整体布局样式 */
 * {
   box-sizing: border-box;
@@ -107,7 +107,7 @@ body {
 
 /* 输入框默认宽度 */
 .el-input {
-  width: 160px !important;
+  width: 140px !important;
 }
 
 /* 时间输入框 */

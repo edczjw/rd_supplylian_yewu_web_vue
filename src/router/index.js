@@ -106,7 +106,15 @@ export default new Router({
                               meta: {
                                 auth: true
                               }
-                            }]
+                            },{
+                              // 企业详情以及下载
+                                path: '/users/detail',
+                                name: '开户审核',
+                                component: require('../view/detaillist/detailbase/detail.vue').default,
+                                meta: {
+                                  auth: true
+                                }
+                              }]
       }
   ]
 })

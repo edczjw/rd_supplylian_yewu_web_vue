@@ -350,7 +350,7 @@ export default {
     line-height: 40px;
 
     width: 37%;
-    height: 40px;
+    height: 50px;
 
     label {
       float: left;
