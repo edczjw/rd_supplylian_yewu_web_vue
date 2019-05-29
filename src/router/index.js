@@ -90,7 +90,23 @@ export default new Router({
                           meta: {
                             auth: true
                           }
-                        }]
+                        },{
+                          // 企业详情列表
+                            path: '/users/detailist',
+                            name: '企业详情',
+                            component: require('../view/detaillist/qiyexiangqing.vue').default,
+                            meta: {
+                              auth: true
+                            }
+                          },{
+                            // 企业详情列表
+                              path: '/users/checkdetailist',
+                              name: '开户审核',
+                              component: require('../view/detaillist/checkdetail.vue').default,
+                              meta: {
+                                auth: true
+                              }
+                            }]
       }
   ]
 })

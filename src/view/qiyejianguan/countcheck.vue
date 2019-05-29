@@ -74,21 +74,18 @@
         >
           <el-table-column prop="processNo" label="企业编号" align="center"></el-table-column>
           <el-table-column prop="name" label="企业名称" align="center">
-            <!-- 点击某个客户姓名查看详情 -->
-            <template slot-scope="scope">
-              <el-button
-                type="text"
-                size="small"
-                @click="gouserdetail(scope.row.processNo,scope.row.channelCode)"
-              >{{scope.row.name}}</el-button>
-            </template>
           </el-table-column>
-          <!-- <el-table-column prop="channelCode" label="渠道" width="100" align="center">
-          </el-table-column>-->
           <el-table-column prop="productCode" label="法人姓名" align="center"></el-table-column>
           <el-table-column prop="preApproveMoney" label="法人手机号" align="center"></el-table-column>
           <el-table-column prop="preApproveTerm" label="申请时间" align="center"></el-table-column>
-          <el-table-column prop="preApproveMonthRate" label="操作" align="center"></el-table-column>
+          <el-table-column prop="preApproveMonthRate" label="操作" align="center">
+            <!-- 点击查看详情 -->
+              <template slot-scope="scope">
+                <el-button type="text" size="small"
+                 @click="gouserdetail(scope.row.processNo,scope.row.channelCode)">
+                  {{scope.row.preApproveMonthRate}}</el-button>
+              </template>
+            </el-table-column>
         </el-table>
         <!-- 分页 -->
         <div class="block">
@@ -120,17 +117,10 @@ export default {
       pageIndex: 1, //初始页
       pageSize: 50, //显示当前行的条数
 
-      //渠道数据容器
-      channellist: [],
-
-      //产品接口容器
-      productlist: [],
-
-      //审批结果接口容器
-      approvalStatusCodelist: [],
-
       //表格数据
-      tableData: [],
+      tableData: [{
+        preApproveMonthRate:'操作'
+      }],
 
       searchform: {
         // processNo:"",//案件号
@@ -149,10 +139,6 @@ export default {
   },
   // mounted只执行一次,在模板渲染成html后调用
   mounted() {
-    // this.getName();//获取管理员用户名
-    // this.getchannellist();//获取搜索框渠道接口列表
-    // this.getapprovalStatusCodelist();//获取审批结果接口方法
-    // this.getlist();//获取用户列表
   },
 
   //在模板渲染成html前调用
@@ -160,129 +146,6 @@ export default {
     // this.getlist(); //获取用户列表
   },
   methods: {
-    //获取审批结果方法
-    getapprovalStatusCodelist() {
-      let data = {
-        approveStatusType: this.searchform.approveStatusType
-      };
-      this.$http
-        .post(this.$store.state.domain + "/loanManage/getStatusType", data)
-        .then(
-          //成功
-          response => {
-            if (response.data.code == 0) {
-              this.approvalStatusCodelist = response.data.detail.result;
-            }
-            //失败
-            else {
-              this.$message({
-                message: response.data.msg,
-                type: "error"
-              });
-            }
-          },
-          //打印
-          response => {
-            // console.log(response);
-          }
-        );
-    },
-
-    //实现下拉框二级联动
-    selChange(val) {
-      let data = {
-        productCd: this.searchform.productCd
-      };
-      this.$http
-        .post(this.$store.state.domain + "/loanManage/product/query", data)
-        .then(
-          //成功
-          response => {
-            if (response.data.code == 0) {
-              let productlists = response.data.detail.result;
-              //遍历
-              for (var vals of productlists) {
-                if (val == vals.channelCd) {
-                  this.productlist = vals.list;
-                }
-              }
-            }
-            //失败
-            else {
-              this.$message({
-                message: response.data.msg,
-                type: "error"
-              });
-            }
-          },
-          //打印
-          response => {
-            // console.log(response);
-          }
-        );
-    },
-
-    // 获取渠道接口列表数据
-    getchannellist() {
-      let data = {
-        channelCd: this.searchform.channelCd
-      };
-      this.$http
-        .post(this.$store.state.domain + "/loanManage/channel/query", data)
-        .then(
-          //成功
-          response => {
-            if (response.data.code == 0) {
-              this.channellist = response.data.detail.result;
-            }
-            //失败
-            else {
-              this.$message({
-                message: response.data.msg,
-                type: "error"
-              });
-            }
-          },
-          //打印
-          response => {
-            // console.log(response);
-          }
-        );
-    },
-
-    //独自获取所有渠道产品列表
-    getproductlist() {
-      let data = {
-        productCd: this.searchform.productCd
-      };
-      this.$http
-        .post(this.$store.state.domain + "/loanManage/product/query", data)
-        .then(
-          //成功
-          response => {
-            if (response.data.code == 0) {
-              let productlists = response.data.detail.result;
-              //遍历
-              for (var vals of productlists) {
-                for (var x of vals.list) {
-                  this.productlist.push(x);
-                }
-              }
-            }
-            //失败
-            else {
-              this.$message({
-                message: response.data.msg,
-                type: "error"
-              });
-            }
-          },
-          //打印
-          response => {
-            // console.log(response);
-          }
-        );
-    },
 
     //获取用户名，vue 本地存储数据 sessionStorage
     getName() {
@@ -332,44 +195,7 @@ export default {
 
     // 点击用户名跳转至详情页
     gouserdetail(processNo, channelCode) {
-      //判断跳转
-      if (channelCode == "WHZHWS") {
-        this.$router.push("/users/detailwanshang?processNo=" + processNo);
-      } else if (channelCode == "SDLY") {
-        this.$router.push("/users/detaillinyi?processNo=" + processNo);
-      } else if (channelCode == "BJHY") {
-        this.$router.push("/users/detailhuayu?processNo=" + processNo);
-      } else if (channelCode == "BJZH") {
-        this.$router.push("/users/detailzhonghe?processNo=" + processNo);
-      } else if (channelCode == "M008") {
-        this.$router.push("/users/detailhuayu?processNo=" + processNo);
-      } else if (channelCode == "M012") {
-        this.$router.push("/users/detailshenshengrong?processNo=" + processNo);
-      } else if (channelCode == "M015") {
-        this.$router.push("/users/detailguhe?processNo=" + processNo);
-      } else if (channelCode == "M016") {
-        this.$router.push("/users/detailqianhai?processNo=" + processNo);
-      } else if (channelCode == "M017") {
-        this.$router.push("/users/detailyunkedai?processNo=" + processNo);
-      } else if (channelCode == "M019") {
-        this.$router.push("/users/detailxiaoye?processNo=" + processNo);
-      } else if (
-        channelCode == "M018" ||
-        channelCode == "M023" ||
-        channelCode == "M024"
-      ) {
-        this.$router.push("/users/detailbaiduo?processNo=" + processNo);
-      } else if (channelCode == "M009") {
-        this.$router.push("/users/detailjiarongbao?processNo=" + processNo);
-      } else if (channelCode == "M020") {
-        this.$router.push("/users/detailchangsheng?processNo=" + processNo);
-      } else if (channelCode == "M021") {
-        this.$router.push("/users/detailweirong?processNo=" + processNo);
-      } else if (channelCode == "M022") {
-        this.$router.push("/users/detailhairong?processNo=" + processNo);
-      } else {
-        this.$router.push("/users/detaillinyi?processNo=" + processNo);
-      }
+     this.$router.push("/users/checkdetailist?processNo=" + processNo);
     },
 
     // ajax异步数据交互：Vue 实例提供了 this.$http 服务可用于发送 HTTP 请求
