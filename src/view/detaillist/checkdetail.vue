@@ -10,87 +10,180 @@
           </th>
         </tr>
 
-        <ul>
+        <ul class="tab-ul">
+            
           <li>
             <label>企业名称：</label>
-            {{detail.custName}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
           </li>
           <li>
             <label>注册资本：</label>
-            {{detail.age}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
           </li>
           <li>
             <label>实缴资本：</label>
-            {{detail.applyLimit}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
           </li>
           <li>
             <label>成立起止日：</label>
-            {{detail.applyTerm}}{{detail.month}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
           </li>
           <li>
             <label>是否为一般纳税人：</label>
-            {{detail.useFor}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
           </li>
 
           <li>
             <label>法定代表人姓名：</label>
-            {{detail.goods}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
           </li>
 
           <li>
             <label>法定代表人身份证号码：</label>
-            {{detail.goodsMoney}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
           </li>
           <li>
             <label>法定代表人联系电话：</label>
-            {{detail.occupation}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
           </li>
           <li style="width: 100%;">
             <label>统一社会征信号码或营业执照号码：</label>
-            {{detail.idNo}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
           </li>
           <li style="width: 100%;">
             <label>注册地址：</label>
-            {{detail.phone}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
           </li>
           <li style="width: 100%;">
             <label>实际经营地址：</label>
-            {{detail.sex}}
+            <span v-if="willShow" >{{this.qq}}</span>
+            <el-input v-else size="small" v-model="qq" placeholder="请输入内容" @change="inputchange()"></el-input> 
           </li>
 
-          <div class="tab-dd">
-            <el-table
-              :data="this.detail.contactList"
-              size="mini"
-              border
-              style="color:blue; font-size:8px"
-            >
-              <el-table-column prop="contactName" label="实际控制人姓名" align="center"></el-table-column>
-              <el-table-column prop="contactPhone" label="实际控制人身份证号码" align="center"></el-table-column>
-              <el-table-column prop="contactRelationship" label="实际控制人联系电话" align="center"></el-table-column>
-            </el-table>
-          </div>
+            <el-row style="padding:30px;text-align:right;width:100%;">
+            <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
+            <el-button plain type="success" round size="mini" @click="fn()">保存</el-button>
+            </el-row>
 
           <div class="tab-dd">
-            <el-table
-              :data="this.detail.contactList"
-              size="mini"
-              border
-              style="color:blue; font-size:8px"
-            >
-              <el-table-column prop="contactName" label="业务对接人姓名" align="center"></el-table-column>
-              <el-table-column prop="contactPhone" label="业务对接人联系电话" align="center"></el-table-column>
-              <el-table-column prop="contactRelationship" label="业务对接人联系邮箱" align="center"></el-table-column>
-            </el-table>
+             <el-table :data="tableData" border highlight-current-row @row-click="handleCurrentChange">
+            <el-table-column label="实际控制人姓名" align="center">
+                <template slot-scope="scope">
+                    <span v-if="willShow">{{scope.row.date}}</span>
+                    <el-input v-else size="small" v-model="scope.row.date" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    
+                </template>
+            </el-table-column>
+            <el-table-column label="身份证号码" align="center">
+                <template slot-scope="scope">
+                    <span v-if="willShow">{{scope.row.name}}</span>
+                    <el-input v-else size="small" v-model="scope.row.name" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    
+                </template>
+            </el-table-column>
+            <el-table-column prop="address" label="联系电话" align="center">
+                <template slot-scope="scope">
+                    <span v-if="willShow">{{scope.row.address}}</span>
+                    <el-input v-else size="small" v-model="scope.row.address" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" align="center">
+                <template slot-scope="scope">
+                    <el-el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-el-button>
+                </template>
+            </el-table-column>
+        </el-table>
           </div>
+          
+          <el-row style="padding:30px;text-align:right;width:100%;">
+        <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
+            <el-button plain type="success" round size="mini" @click="fn()">保存</el-button>
+          </el-row>
 
           <div class="tab-dd">
-            <el-table :data="this.contactList" size="mini" border>
-              <el-table-column prop="contactName" label="财务对接人姓名" align="center"></el-table-column>
-              <el-table-column prop="contactPhone" label="财务对接人联系电话" align="center"></el-table-column>
-              <el-table-column prop="contactRelationship" label="财务对接人联系邮箱" align="center"></el-table-column>
-            </el-table>
+             <el-table :data="tableData" border highlight-current-row @row-click="handleCurrentChange">
+            <el-table-column label="业务对接人姓名" align="center">
+                <template slot-scope="scope">
+                    <span v-if="willShow">{{scope.row.date}}</span>
+                    <el-input v-else size="small" v-model="scope.row.date" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    
+                </template>
+            </el-table-column>
+            <el-table-column label="联系电话" align="center">
+                <template slot-scope="scope">
+                    <span v-if="willShow">{{scope.row.name}}</span>
+                    <el-input v-else size="small" v-model="scope.row.name" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    
+                </template>
+            </el-table-column>
+            <el-table-column prop="address" label="联系邮箱" align="center">
+                <template slot-scope="scope">
+                    <span v-if="willShow">{{scope.row.address}}</span>
+                    <el-input v-else size="small" v-model="scope.row.address" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" align="center">
+                <template slot-scope="scope">
+                    <el-el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-el-button>
+                </template>
+            </el-table-column>
+        </el-table>
           </div>
+
+          <el-row style="padding:30px;text-align:right;width:100%;">
+        <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
+            <el-button plain type="success" round size="mini" @click="fn()">保存</el-button>
+          </el-row>
+
+          <div class="tab-dd">
+             <el-table :data="tableData" border highlight-current-row @row-click="handleCurrentChange">
+            <el-table-column label="财务对接人姓名" align="center">
+                <template slot-scope="scope">
+                    <span v-if="willShow">{{scope.row.date}}</span>
+                    <el-input v-else size="small" v-model="scope.row.date" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    
+                </template>
+            </el-table-column>
+            <el-table-column label="联系电话" align="center">
+                <template slot-scope="scope">
+                    <span v-if="willShow">{{scope.row.name}}</span>
+                    <el-input v-else size="small" v-model="scope.row.name" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    
+                </template>
+            </el-table-column>
+            <el-table-column prop="address" label="联系邮箱" align="center">
+                <template slot-scope="scope">
+                    <span v-if="willShow">{{scope.row.address}}</span>
+                    <el-input v-else size="small" v-model="scope.row.address" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" align="center">
+                <template slot-scope="scope">
+                    <!-- <el-el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-el-button> -->
+                    <el-el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-el-button>
+                </template>
+            </el-table-column>
+        </el-table>
+          </div>
+
+          <el-row style="padding:30px;text-align:right;width:100%;">
+        <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
+            <el-button plain type="success" round size="mini" @click="fn()">保存</el-button>
+          </el-row>
+
         </ul>
       </table>
     </div>
@@ -113,12 +206,38 @@
             </tr>
 
             <tr>
-              <td></td>
-              <td></td>
+              <td>
+                  <span v-if="willShow" >{{this.qq}}</span>
+                    <el-select v-else v-model="qq" placeholder="请选择">
+                        <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                    </el-select>
+                </td>
+              <td>
+                  <span v-if="willShow" >{{this.qq}}</span>
+            <el-input 
+            v-else
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            v-model="qq" placeholder="请输入内容" @change="inputchange()"></el-input> 
+                  </td>
             </tr>
           </table>
         </div>
+        <el-row style="padding:30px;text-align:right;">
+          <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
+            <el-button plain type="success" round size="mini" @click="fn()">保存</el-button>
+        </el-row>
       </table>
+
+      
+    <el-row style="text-align:center;padding:30px;border-top:1px solid #eee;">
+          <el-col :span="24"><el-button type="primary" @click="fn()">提交</el-button></el-col>
+        </el-row>
     </div>
   </div>
 </template>
@@ -126,14 +245,62 @@
 export default {
   data() {
     return {
+        willShow:true,
+        qq:'asdeseasd',
+        options:[{
+          value: '选项1',
+          label: '通过'
+        }, {
+          value: '选项2',
+          label: '拒绝'
+        }],
+
+        tableData: [{
+                date: '2016-05-02',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1518 弄'
+            }, {
+                date: '2016-05-04',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1517 弄'
+            }, {
+                date: '2016-05-01',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1519 弄'
+            }, {
+                date: '2016-05-03',
+                name: '王小虎',
+                address: '上海市普陀区金沙江路 1516 弄'
+            }],
       //基本信息
       detail: {}
     };
   },
   mounted() {
-    this.getdetail();
+    // this.getdetail();
   },
   methods: {
+    fn(){
+        if(this.willShow==true){
+            this.willShow=false;
+        }else{
+            this.willShow=true
+        }
+    },
+    inputchange(){
+        console.log(this.qq)
+    },
+    handleCurrentChange(row, event, column) {
+        console.log(row, event, column, event.currentTarget)
+    },
+    handleEdit(index, row) {
+        console.log(index, row);
+    },
+    handleDelete(index, row) {
+        console.log(index, row);
+    },
+
+
     //查看认证
     getLink(url) {
       window.open(url);
@@ -170,7 +337,7 @@ export default {
 
   list-style: none;
 }
-ul {
+.tab-ul {
   display: flex;
   flex-wrap: wrap;
 
@@ -179,7 +346,7 @@ ul {
   // 上左右下
   margin: 10px 0 10px;
 
-  li {
+ li {
     line-height: 40px;
 
     width: 37%;
@@ -197,7 +364,9 @@ ul {
     }
   }
 }
-
+.el-row{
+    width:100%;
+}
 .outpadding {
   padding: 30px 0;
 }
@@ -220,7 +389,6 @@ svg {
 .jititable {
   border-collapse: collapse;
   width: 100%;
-  margin-bottom: 30px;
 }
 
 .jititable th {
@@ -235,4 +403,5 @@ svg {
   border: 1px solid rgb(218, 219, 221);
   text-align: center;
 }
+
 </style>

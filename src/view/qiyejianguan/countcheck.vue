@@ -119,7 +119,7 @@ export default {
 
       //表格数据
       tableData: [{
-        preApproveMonthRate:'操作'
+        preApproveMonthRate:'审核'
       }],
 
       searchform: {
