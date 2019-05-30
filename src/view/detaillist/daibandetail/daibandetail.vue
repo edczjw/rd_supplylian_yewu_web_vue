@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="line-bin">
+          我的待办<i class="el-icon-arrow-right"></i>
+          <router-link to="/mydaiban/detail">我的待办</router-link>
+          <i class="el-icon-arrow-right"></i>企业详情
+      </div>
     <div class="outpadding">
        <!-- <p class="xiangqingtitle"><i class="el-icon-location-outline"></i>北京华域</p> -->
 

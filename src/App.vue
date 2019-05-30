@@ -120,4 +120,15 @@ body {
   text-align: center;
 }
 
+.line-bin{
+  font-family: '黑体';
+  width:100%;
+  height: 50px;
+  line-height: 50px;
+  border-radius: 4px;
+  background: rgb(214, 213, 213);
+  padding-left: 15px;
+  font-size: 14px;
+  margin-bottom: 10px;
+}
 </style>

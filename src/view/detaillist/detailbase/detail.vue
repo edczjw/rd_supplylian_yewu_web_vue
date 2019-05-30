@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="line-bin">
+          案件详情
+      </div>
     <div class="outpadding">
        <!-- <p class="xiangqingtitle"><i class="el-icon-location-outline"></i>北京华域</p> -->
 

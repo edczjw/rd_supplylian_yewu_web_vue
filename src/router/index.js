@@ -122,7 +122,23 @@ export default new Router({
                                   meta: {
                                     auth: true
                                   }
-                                }]
+                                },{
+                                  // 手动入账详情
+                                    path: '/shougongruzhang/detail',
+                                    name: '手工入账详情',
+                                    component: require('../view/detaillist/ruzhangdetail/ruzhangdetail.vue').default,
+                                    meta: {
+                                      auth: true
+                                    }
+                                  },{
+                                    // 还款详情
+                                      path: '/huankuanjilu/detail',
+                                      name: '还款详情',
+                                      component: require('../view/detaillist/huankuandetail/huankuandetail.vue').default,
+                                      meta: {
+                                        auth: true
+                                      }
+                                    }]
       }
   ]
 })

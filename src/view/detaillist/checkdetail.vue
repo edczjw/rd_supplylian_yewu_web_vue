@@ -1,5 +1,10 @@
 <template>
   <div>
+    <div class="line-bin">
+          企业管理<i class="el-icon-arrow-right"></i>
+          <router-link to="/users/checkdetailist">开户审核</router-link>
+          <i class="el-icon-arrow-right"></i>企业详情
+      </div>
     <div class="el-table">
       <table width="100%">
         <tr colspan="6">

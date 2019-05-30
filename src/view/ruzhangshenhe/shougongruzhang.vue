@@ -79,9 +79,16 @@
           <el-table-column prop="productCode" label="应还款利息" align="center"></el-table-column>
           <el-table-column prop="preApproveMoney" label="应还款服务金额" align="center"></el-table-column>
           <el-table-column prop="preApproveTerm" label="应还款罚金" align="center"></el-table-column>
-          <el-table-column prop="preApproveMonthRate" label="应还款总金额" align="center"></el-table-column>
+          <el-table-column prop="preApproveTerm" label="应还款总金额" align="center"></el-table-column>
           <el-table-column prop="preApproveTerm" label="应还款日期" align="center"></el-table-column>
-          <el-table-column prop="preApproveMonthRate" label="操作" align="center"></el-table-column>
+          <el-table-column prop="preApproveMonthRate" label="操作" align="center">
+            <!-- 点击查看详情 -->
+              <template slot-scope="scope">
+                <el-button type="text" size="small"
+                 @click="gouserdetail(scope.row.processNo,scope.row.channelCode)">
+                  {{scope.row.preApproveMonthRate}}</el-button>
+              </template>
+          </el-table-column>
         </el-table>
         <!-- 分页 -->
         <div class="block">
@@ -114,7 +121,9 @@ export default {
       pageSize: 50, //显示当前行的条数
 
       //表格数据
-      tableData: [],
+      tableData: [{
+        preApproveMonthRate:'去入账'
+      }],
 
       searchform: {
         channelCd: "", //进件渠道
@@ -170,7 +179,7 @@ export default {
 
     // 点击用户名跳转至详情页
     gouserdetail(processNo, channelCode) {
-      
+      this.$router.push("/shougongruzhang/detail?processNo=" + processNo);
     },
 
     // ajax异步数据交互：Vue 实例提供了 this.$http 服务可用于发送 HTTP 请求
