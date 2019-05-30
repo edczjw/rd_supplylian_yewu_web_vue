@@ -74,20 +74,19 @@
         >
           <el-table-column prop="processNo" label="案件编号" align="center"></el-table-column>
           <el-table-column prop="name" label="企业名称" align="center">
-            <!-- 点击某个客户姓名查看详情 -->
-            <template slot-scope="scope">
-              <el-button
-                type="text"
-                size="small"
-                @click="gouserdetail(scope.row.processNo,scope.row.channelCode)"
-              >{{scope.row.name}}</el-button>
-            </template>
           </el-table-column>
           <el-table-column prop="productCode" label="法人姓名" align="center"></el-table-column>
           <el-table-column prop="preApproveMoney" label="法人手机号" align="center"></el-table-column>
           <el-table-column prop="preApproveTerm" label="提单时间" align="center"></el-table-column>
-          <el-table-column prop="preApproveMonthRate" label="节点名称" align="center"></el-table-column>
-          <el-table-column prop="preApproveMonthRate" label="操作" align="center"></el-table-column>
+          <el-table-column prop="preApproveTerm" label="节点名称" align="center"></el-table-column>
+          <el-table-column prop="preApproveMonthRate" label="操作" align="center">
+            <!-- 点击查看详情 -->
+              <template slot-scope="scope">
+                <el-button type="text" size="small"
+                 @click="gouserdetail(scope.row.processNo,scope.row.channelCode)">
+                  {{scope.row.preApproveMonthRate}}</el-button>
+              </template>
+          </el-table-column>
         </el-table>
         <!-- 分页 -->
         <div class="block">
@@ -120,7 +119,9 @@ export default {
       pageSize: 50, //显示当前行的条数
 
       //表格数据
-      tableData: [],
+      tableData: [{
+        preApproveMonthRate:'审核'
+      }],
 
       searchform: {
         channelCd: "", //进件渠道
@@ -177,7 +178,7 @@ export default {
 
     // 点击用户名跳转至详情页
     gouserdetail(processNo, channelCode) {
-     
+      this.$router.push("/mydaiban/detail?processNo=" + processNo);
     },
 
     // ajax异步数据交互：Vue 实例提供了 this.$http 服务可用于发送 HTTP 请求

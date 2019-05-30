@@ -109,12 +109,20 @@ export default new Router({
                             },{
                               // 企业详情以及下载
                                 path: '/users/detail',
-                                name: '开户审核',
+                                name: '详情',
                                 component: require('../view/detaillist/detailbase/detail.vue').default,
                                 meta: {
                                   auth: true
                                 }
-                              }]
+                              },{
+                                // 我的待办详情以及下载
+                                  path: '/mydaiban/detail',
+                                  name: '待办详情',
+                                  component: require('../view/detaillist/daibandetail/daibandetail.vue').default,
+                                  meta: {
+                                    auth: true
+                                  }
+                                }]
       }
   ]
 })
