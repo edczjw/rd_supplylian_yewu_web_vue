@@ -6,7 +6,7 @@ import router from './router'
 //引入饿了吗ui
 import ElementUI from 'element-ui'
 import animate from 'animate.css'
-
+import axios from 'axios'
 
 //引入vuex
 import store from './store'
@@ -16,10 +16,14 @@ Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(animate)
 
+//$axios替换axios
+Vue.prototype.$axios = axios
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
   router,
+  axios,
   store,//使用store
   components: { App },
   template: '<App/>'

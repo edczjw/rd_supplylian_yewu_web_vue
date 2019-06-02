@@ -11,6 +11,11 @@ export default new Router({
       name: 'HelloWorld',
       component: HelloWorld
     },{
+      // 登陆
+      path: '/login',
+      name: '登陆',
+      component: require('../view/login/login.vue').default,
+      },{
       // 主页
       path: '/home',
       name: '主页',
@@ -21,7 +26,7 @@ export default new Router({
       children:[{
         // 主题home
           path: '/mshome',
-          name: '主页',
+          name: '主题主页',
           component: require('../view/index/home.vue').default,
           meta: {
             auth: true
@@ -37,7 +42,7 @@ export default new Router({
           },{
             // 开户审核
               path: '/qiyejianguan/countcheck',
-              name: '监管列表',
+              name: '开户审核',
               component: require('../view/qiyejianguan/countcheck.vue').default,
               meta: {
                 auth: true
@@ -101,7 +106,7 @@ export default new Router({
                           },{
                             // 企业详情列表
                               path: '/users/checkdetailist',
-                              name: '开户审核',
+                              name: '企业详情列表',
                               component: require('../view/detaillist/checkdetail.vue').default,
                               meta: {
                                 auth: true
