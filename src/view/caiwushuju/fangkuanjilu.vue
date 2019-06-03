@@ -8,13 +8,13 @@
           <el-form ref="searchform" :model="searchform" label-width="100px" size="mini">
             <el-row :gutter="30">
               <el-col :span="6">
-                <el-form-item label="企业名称" prop="processNo">
-                  <el-input v-model="searchform.processNo" clearable></el-input>
+                <el-form-item label="企业名称" prop="enterpriseName">
+                  <el-input v-model="searchform.enterpriseName" clearable></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
-                <el-form-item label="法人姓名" prop="name">
-                  <el-input v-model="searchform.name" clearable></el-input>
+                <el-form-item label="法人姓名" prop="legalName">
+                  <el-input v-model="searchform.legalName" clearable></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -23,10 +23,9 @@
                     class="shi"
                     clearable
                     v-model="searchform.beginDate"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    type="datetime"
+                    value-format="yyyy-MM-dd"
+                    type="date"
                     placeholder="开始日期"
-                    default-time="00:00:00"
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
@@ -39,10 +38,9 @@
                     class="shi"
                     clearable
                     v-model="searchform.endDate"
-                    value-format="yyyy-MM-dd HH:mm:ss"
-                    type="datetime"
+                    value-format="yyyy-MM-dd"
+                    type="date"
                     placeholder="结束日期"
-                    default-time="23:59:59"
                   ></el-date-picker>
                 </el-form-item>
               </el-col>
@@ -66,28 +64,22 @@
           border
           size="medium"
           stripe
-          v-loading="listLoading"
-          element-loading-text="拼命加载中"
-          element-loading-spinner="el-icon-loading"
-          element-loading-background="rgba(0, 0, 0, 0.8)"
           style="width: 100%; height:100%;"
         >
           <el-table-column prop="processNo" label="案件编号" align="center"></el-table-column>
-          <el-table-column prop="name" label="企业名称" align="center">
+          <el-table-column prop="enterpriseName" label="企业名称" align="center">
             <!-- 点击查看详情 -->
               <template slot-scope="scope">
                 <el-button type="text" size="small"
-                 @click="gouserdetail(scope.row.processNo,scope.row.channelCode)">
-                  {{scope.row.name}}</el-button>
+                 @click="gouserdetail(scope.row.processNo)">
+                  {{scope.row.enterpriseName}}</el-button>
               </template>
           </el-table-column>
-          <!-- <el-table-column prop="channelCode" label="渠道" width="100" align="center">
-          </el-table-column>-->
-          <el-table-column prop="productCode" label="放款金额" align="center"></el-table-column>
-          <el-table-column prop="preApproveMoney" label="利率（%）" align="center"></el-table-column>
-          <el-table-column prop="preApproveTerm" label="期限（天）" align="center"></el-table-column>
-          <el-table-column prop="preApproveMonthRate" label="计息方式" align="center"></el-table-column>
-          <el-table-column prop="preApproveMonthRate" label="手工放款时间" align="center"></el-table-column>
+          <el-table-column prop="loanInitPrin" label="放款金额" align="center"></el-table-column>
+          <el-table-column prop="interestRate" label="利率（%）" align="center"></el-table-column>
+          <el-table-column prop="month" label="期限（天）" align="center"></el-table-column>
+          <el-table-column prop="interestRateType" label="计息方式" align="center"></el-table-column>
+          <el-table-column prop="borrowTime" label="手工放款时间" align="center"></el-table-column>
         </el-table>
         <!-- 分页 -->
         <div class="block">
@@ -113,43 +105,29 @@
 export default {
   data() {
     return {
-      userName: "",
       count: 0, //总信息数
-      listLoading: false, //加载样式
       pageIndex: 1, //初始页
       pageSize: 50, //显示当前行的条数
 
       //表格数据
-      tableData: [{
-        name:'民盛'
-      }],
+      tableData: [],
 
       searchform: {
-        channelCd: "", //进件渠道
-        productCd: "", //渠道产品
-        approveStatusType: "", //审批结果
-        beginDate: "", //开始时间
-        endDate: "", //至
-        pageIndex: 1, //初始页
-        pageSize: 50 //显示当前行的条数
+        enterpriseName:"",  //企业名称
+        legalName:"",       //法人姓名
+        beginDate:"",       //开始时间
+        endDate:"",       //截止时间
+        pageIndex: 1,     //初始页
+        pageSize: 50      //显示当前行的条数
       }
     };
   },
   // mounted只执行一次,在模板渲染成html后调用
   mounted() {
+    this.getlist()
   },
 
-  //在模板渲染成html前调用
-  created() {
-  },
   methods: {
-    
-    //获取用户名，vue 本地存储数据 sessionStorage
-    getName() {
-      let userName = sessionStorage.getItem("name");
-      this.userName = userName;
-    },
-
     // 搜索功能
     search() {
       this.getlist();
@@ -158,7 +136,6 @@ export default {
     // 重置功能
     resetForm(formName) {
       this.$refs[formName].resetFields();
-      this.productlist = "";
       // this.getlist();
     },
 
@@ -178,60 +155,33 @@ export default {
     },
 
     // 点击用户名跳转至详情页
-    gouserdetail(processNo, channelCode) {
+    gouserdetail(processNo) {
       //判断跳转
         this.$router.push("/users/detail?processNo=" + processNo);
     },
 
     // ajax异步数据交互：Vue 实例提供了 this.$http 服务可用于发送 HTTP 请求
     getlist() {
-      this.listLoading = true;
-      this.$http
-        .post(
-          this.$store.state.domain + "/loanManage/caseList",
-          this.searchform
-        )
-        //then()方法异步执行，就是当then()前面的方法执行完之后再执行then()里面的方法，这样就不会发生获取不到数据的问题
-        .then(
-          // Lambda写法
-          response => {
-            if (response.data.code == 0) {
-              //请求成功回调函数
-              this.tableData = response.data.detail.result.pageList;
-              this.pageSize = response.data.detail.result.pageSize;
-              this.pageIndex = response.data.detail.result.pageIndex;
-              this.count = response.data.detail.result.count;
-              this.listLoading = false;
-
-              if (this.tableData == null) {
-                this.$notify({
-                  message: "搜索失败，无此数据，请重新搜索。",
-                  type: "warning",
-                  duration: "2000" //持续时间
-                });
+      this.$axios({
+              method: 'post',
+              url: this.$store.state.domain +"/manage/loan/list",
+              data: this.searchform,
+          })
+          .then(
+              response => {
+              if(response.data.code==0){
+                    this.tableData = response.data.detail.result.pageList;
+                    this.searchform.pageSize = response.data.detail.result.pageSize
+                    this.searchform.pageIndex = response.data.detail.result.pageIndex
+                    this.count = response.data.detail.result.count
+              }else{
+                  this.$message.error(response.data.msg);
               }
-            } else {
-              //请求失败回调函数
-              // this.listLoading=false;
-              // this.$message({
-              //     message: response.message,
-              //     type: "error"
-              //   });
-            }
-          },
-          response => {
-            //请求失败回调函数
-            this.listLoading = false;
-            this.$message({
-              dangerouslyUseHTMLString: true, //表示提示的是html片段
-              message:
-                '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> ' +
-                response.body.message,
-              type: "error"
-            });
-            console.log(response);
-          }
-        );
+              },
+              response => {
+              console.log(response);
+              }
+            )
     }
   },
 

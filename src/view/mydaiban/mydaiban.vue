@@ -172,10 +172,10 @@ export default {
           .then(
               response => {
               if(response.data.code==0){
-                    this.tableData = response.data.detail.resultList;
-                    this.searchform.pageSize = response.data.detail.pageSize
-                    this.searchform.pageIndex = response.data.detail.pageIndex
-                    this.count = response.data.detail.count
+                    this.tableData = response.data.detail.result.pageList;
+                    this.searchform.pageSize = response.data.detail.result.pageSize
+                    this.searchform.pageIndex = response.data.detail.result.pageIndex
+                    this.count = response.data.detail.result.count
               }else{
                   this.$message.error(response.data.msg);
               }
