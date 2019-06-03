@@ -1,6 +1,6 @@
 <template>
   <!-- true显示，false不显示 -->
-  <div v-if="userName==this.$store.state.nameler?false:true">
+  <div>
     <div class="topBanner">
       <div class="content">
         <div class="searcharea">
@@ -24,6 +24,7 @@
                     clearable
                     v-model="searchform.startDate"
                     value-format="yyyy-MM-dd HH:mm"
+                    format="yyyy-MM-dd HH:mm"
                     type="datetime"
                     placeholder="开始日期"
                   ></el-date-picker>
@@ -39,6 +40,7 @@
                     clearable
                     v-model="searchform.endDate"
                     value-format="yyyy-MM-dd HH:mm"
+                    format="yyyy-MM-dd HH:mm"
                     type="datetime"
                     placeholder="结束日期"
                   ></el-date-picker>
@@ -177,9 +179,15 @@ export default {
               }else{
                   this.$message.error(response.data.msg);
               }
-              },
-              response => {
-              console.log(response);
+              }
+            ).catch(
+              error => {
+              this.$message({
+                    dangerouslyUseHTMLString: true,//表示提示的是html片段
+                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
+                    error.response.data.message,
+                    type: "error"
+                  });
               }
             )
     }

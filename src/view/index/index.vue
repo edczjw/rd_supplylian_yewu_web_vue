@@ -59,7 +59,7 @@ export default {
           if(this.userName!=null){  
             this.$message({
               dangerouslyUseHTMLString: true,//表示提示的是html片段
-              message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-jiqiren"></use> </svg> '+'欢迎登陆您民盛报送系统！',
+              message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-jiqiren"></use> </svg> '+'欢迎您登陆民盛报送系统！',
               type: 'success',
               center: true
             });
