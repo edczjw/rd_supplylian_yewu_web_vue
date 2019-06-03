@@ -82,7 +82,11 @@ export default {
               sessionStorage.setItem("name", username);//本地存储用户名
 
               sessionStorage.setItem("userId", auditorid);//本地存储用户ID
-              _this.$router.push("/home");//跳转
+              this.$message({
+                message: '恭喜你，登录成功！',
+                type: 'success'
+              });
+              _this.$router.push("/mshome");//跳转
             } 
             //失败
             else {

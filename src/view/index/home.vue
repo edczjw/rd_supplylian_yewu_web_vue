@@ -15,12 +15,11 @@
                 小
                 贷
                 </h2>
-            <h3 class="animated zoomIn">供
+            <h3 class="animated zoomIn">
+                供
                 应
                 链
-                金
-                融
-                服
+                业
                 务
                 平
                 台

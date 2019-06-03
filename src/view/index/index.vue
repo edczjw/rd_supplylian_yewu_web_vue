@@ -37,7 +37,7 @@ export default {
   mounted() {
     this.getName();
     //登陆成功提示
-    // this.openCenter();
+    this.openCenter();
     window.addEventListener('scroll', this.returntop, true);  // 监听（绑定）滚轮滚动事件
   },
   methods: {
@@ -56,7 +56,7 @@ export default {
           $('body,html').animate({scrollTop: 0 }, 300);
     },
     openCenter() {
-          if(this.userName=="admin"){  
+          if(this.userName!=null){  
             this.$message({
               dangerouslyUseHTMLString: true,//表示提示的是html片段
               message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-jiqiren"></use> </svg> '+'欢迎登陆您民盛报送系统！',

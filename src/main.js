@@ -5,8 +5,8 @@ import App from './App'
 import router from './router'
 //引入饿了吗ui
 import ElementUI from 'element-ui'
-import animate from 'animate.css'
 import axios from 'axios'
+import animate from 'animate.css'
 
 //引入vuex
 import store from './store'
