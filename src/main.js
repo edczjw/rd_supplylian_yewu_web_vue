@@ -10,7 +10,7 @@ import animate from 'animate.css'
 
 //引入vuex
 import store from './store'
-
+axios.defaults.withCredentials=true //让ajax携带cookie
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.config.productionTip = false
 Vue.use(ElementUI)

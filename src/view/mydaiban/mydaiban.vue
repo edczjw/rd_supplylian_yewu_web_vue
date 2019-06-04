@@ -166,7 +166,7 @@ export default {
       this.searchform.userId = sessionStorage.getItem("userId");//本地存储用户ID
       this.$axios({
               method: 'post',
-              url: this.$store.state.domain +"/biz/order/list",
+              url: this.$store.state.domain +"/manage/task/fetch",
               data: this.searchform,
           })
           .then(

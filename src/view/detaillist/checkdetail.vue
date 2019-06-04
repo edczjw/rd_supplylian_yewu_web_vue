@@ -19,60 +19,65 @@
             
           <li>
             <label>企业名称：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
+            <span v-if="willShow" >{{detail.enterpriseName}}</span>
+            <el-input v-else size="small" v-model="detail.enterpriseName" placeholder="请输入内容"></el-input> 
           </li>
           <li>
             <label>注册资本：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
+            <span v-if="willShow" >{{detail.registeredCapital}}</span>
+            <el-input v-else size="small" v-model="detail.registeredCapital" placeholder="请输入内容"></el-input> 
           </li>
           <li>
             <label>实缴资本：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
+            <span v-if="willShow" >{{detail.paidCapital}}</span>
+            <el-input v-else size="small" v-model="detail.paidCapital" placeholder="请输入内容"></el-input> 
           </li>
           <li>
-            <label>成立起止日：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
+            <label>成立开始日：</label>
+            <span v-if="willShow" >{{detail.startingDate}}</span>
+            <el-input v-else size="small" v-model="detail.startingDate" placeholder="请输入内容"></el-input> 
+          </li>
+          <li>
+            <label>成立有效截止日：</label>
+            <span v-if="willShow" >{{detail.endingDate}}</span>
+            <el-input v-else size="small" v-model="detail.endingDate" placeholder="请输入内容"></el-input> 
           </li>
           <li>
             <label>是否为一般纳税人：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
+            <span v-if="willShow" >{{detail.generalTaxpayers}}</span>
+            <el-input v-else size="small" v-model="detail.generalTaxpayers" placeholder="请输入内容"></el-input> 
           </li>
 
           <li>
             <label>法定代表人姓名：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
+            <span v-if="willShow" >{{detail.legalName}}</span>
+            <el-input v-else size="small" v-model="detail.legalName" placeholder="请输入内容"></el-input> 
           </li>
 
           <li>
             <label>法定代表人身份证号码：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
+            <span v-if="willShow" >{{detail.legalIdCard}}</span>
+            <el-input v-else size="small" v-model="detail.legalIdCard" placeholder="请输入内容"></el-input> 
           </li>
           <li>
             <label>法定代表人联系电话：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
+            <span v-if="willShow" >{{detail.legalPhone}}</span>
+            <el-input v-else size="small" v-model="detail.legalPhone" placeholder="请输入内容"></el-input> 
           </li>
           <li style="width: 100%;">
             <label>统一社会征信号码或营业执照号码：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
+            <span v-if="willShow" >{{detail.socialCode}}</span>
+            <el-input v-else size="small" v-model="detail.socialCode" placeholder="请输入内容"></el-input> 
           </li>
           <li style="width: 100%;">
             <label>注册地址：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容"></el-input> 
+            <span v-if="willShow" >{{detail.registeredAddress}}</span>
+            <el-input v-else size="small" v-model="detail.registeredAddress" placeholder="请输入内容"></el-input> 
           </li>
           <li style="width: 100%;">
             <label>实际经营地址：</label>
-            <span v-if="willShow" >{{this.qq}}</span>
-            <el-input v-else size="small" v-model="qq" placeholder="请输入内容" @change="inputchange()"></el-input> 
+            <span v-if="willShow" >{{detail.businessAddress}}</span>
+            <el-input v-else size="small" v-model="detail.businessAddress" placeholder="请输入内容" @change="inputchange()"></el-input> 
           </li>
 
             <el-row style="padding:30px;text-align:right;width:100%;">
@@ -81,31 +86,31 @@
             </el-row>
 
           <div class="tab-dd">
-             <el-table :data="tableData" border highlight-current-row @row-click="handleCurrentChange">
-            <el-table-column label="实际控制人姓名" align="center">
+             <el-table :data="detail.controlList" border highlight-current-row @row-click="handleCurrentChange">
+            <el-table-column prop="controlName" label="实际控制人姓名" align="center">
                 <template slot-scope="scope">
-                    <span v-if="willShow">{{scope.row.date}}</span>
-                    <el-input v-else size="small" v-model="scope.row.date" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <span v-if="willShow">{{scope.row.controlName}}</span>
+                    <el-input v-else size="small" v-model="scope.row.controlName" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
                     
                 </template>
             </el-table-column>
-            <el-table-column label="身份证号码" align="center">
+            <el-table-column prop="controlIdCard" label="身份证号码" align="center">
                 <template slot-scope="scope">
-                    <span v-if="willShow">{{scope.row.name}}</span>
-                    <el-input v-else size="small" v-model="scope.row.name" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <span v-if="willShow">{{scope.row.controlIdCard}}</span>
+                    <el-input v-else size="small" v-model="scope.row.controlIdCard" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
                     
                 </template>
             </el-table-column>
-            <el-table-column prop="address" label="联系电话" align="center">
+            <el-table-column prop="controlPhone" label="联系电话" align="center">
                 <template slot-scope="scope">
-                    <span v-if="willShow">{{scope.row.address}}</span>
-                    <el-input v-else size="small" v-model="scope.row.address" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <span v-if="willShow">{{scope.row.controlPhone}}</span>
+                    <el-input v-else size="small" v-model="scope.row.controlPhone" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
-                    <el-el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-el-button>
+                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -117,31 +122,31 @@
           </el-row>
 
           <div class="tab-dd">
-             <el-table :data="tableData" border highlight-current-row @row-click="handleCurrentChange">
-            <el-table-column label="业务对接人姓名" align="center">
+             <el-table :data="detail.businessList" border highlight-current-row @row-click="handleCurrentChange">
+            <el-table-column prop="businessName" label="业务对接人姓名" align="center">
                 <template slot-scope="scope">
-                    <span v-if="willShow">{{scope.row.date}}</span>
-                    <el-input v-else size="small" v-model="scope.row.date" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <span v-if="willShow">{{scope.row.businessName}}</span>
+                    <el-input v-else size="small" v-model="scope.row.businessName" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
                     
                 </template>
             </el-table-column>
-            <el-table-column label="联系电话" align="center">
+            <el-table-column prop="businessPhone" label="联系电话" align="center">
                 <template slot-scope="scope">
-                    <span v-if="willShow">{{scope.row.name}}</span>
-                    <el-input v-else size="small" v-model="scope.row.name" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <span v-if="willShow">{{scope.row.businessPhone}}</span>
+                    <el-input v-else size="small" v-model="scope.row.businessPhone" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
                     
                 </template>
             </el-table-column>
-            <el-table-column prop="address" label="联系邮箱" align="center">
+            <el-table-column prop="businessMail" label="联系邮箱" align="center">
                 <template slot-scope="scope">
-                    <span v-if="willShow">{{scope.row.address}}</span>
-                    <el-input v-else size="small" v-model="scope.row.address" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <span v-if="willShow">{{scope.row.businessMail}}</span>
+                    <el-input v-else size="small" v-model="scope.row.businessMail" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
-                    <el-el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-el-button>
+                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -153,32 +158,32 @@
           </el-row>
 
           <div class="tab-dd">
-             <el-table :data="tableData" border highlight-current-row @row-click="handleCurrentChange">
-            <el-table-column label="财务对接人姓名" align="center">
+             <el-table :data="detail.financeList" border highlight-current-row @row-click="handleCurrentChange">
+            <el-table-column prop="financeName" label="财务对接人姓名" align="center">
                 <template slot-scope="scope">
-                    <span v-if="willShow">{{scope.row.date}}</span>
-                    <el-input v-else size="small" v-model="scope.row.date" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <span v-if="willShow">{{scope.row.financeName}}</span>
+                    <el-input v-else size="small" v-model="scope.row.financeName" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
                     
                 </template>
             </el-table-column>
-            <el-table-column label="联系电话" align="center">
+            <el-table-column prop="financePhone" label="联系电话" align="center">
                 <template slot-scope="scope">
-                    <span v-if="willShow">{{scope.row.name}}</span>
-                    <el-input v-else size="small" v-model="scope.row.name" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <span v-if="willShow">{{scope.row.financePhone}}</span>
+                    <el-input v-else size="small" v-model="scope.row.financePhone" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
                     
                 </template>
             </el-table-column>
-            <el-table-column prop="address" label="联系邮箱" align="center">
+            <el-table-column prop="financeMail" label="联系邮箱" align="center">
                 <template slot-scope="scope">
-                    <span v-if="willShow">{{scope.row.address}}</span>
-                    <el-input v-else size="small" v-model="scope.row.address" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <span v-if="willShow">{{scope.row.financeMail}}</span>
+                    <el-input v-else size="small" v-model="scope.row.financeMail" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
-                    <!-- <el-el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-el-button> -->
-                    <el-el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-el-button>
+                    <!-- <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
+                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -212,8 +217,8 @@
 
             <tr>
               <td>
-                  <span v-if="willShow" >{{this.qq}}</span>
-                    <el-select v-else v-model="qq" placeholder="请选择">
+                  <span v-if="willShow" >{{detail.approvalResult}}</span>
+                    <el-select v-else v-model="detail.approvalResult" placeholder="请选择">
                         <el-option
                         v-for="item in options"
                         :key="item.value"
@@ -223,12 +228,12 @@
                     </el-select>
                 </td>
               <td>
-                  <span v-if="willShow" >{{this.qq}}</span>
+                  <span v-if="willShow" >{{detail.approvalRemark}}</span>
             <el-input 
             v-else
             type="textarea"
             :autosize="{ minRows: 2, maxRows: 4}"
-            v-model="qq" placeholder="请输入内容" @change="inputchange()"></el-input> 
+            v-model="detail" placeholder="请输入内容" @change="inputchange()"></el-input> 
                   </td>
             </tr>
           </table>
@@ -251,7 +256,6 @@ export default {
   data() {
     return {
         willShow:true,
-        qq:'asdeseasd',
         options:[{
           value: '选项1',
           label: '通过'
@@ -260,31 +264,45 @@ export default {
           label: '拒绝'
         }],
 
-        tableData: [{
-                date: '2016-05-02',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1518 弄'
-            }, {
-                date: '2016-05-04',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1517 弄'
-            }, {
-                date: '2016-05-01',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1519 弄'
-            }, {
-                date: '2016-05-03',
-                name: '王小虎',
-                address: '上海市普陀区金沙江路 1516 弄'
-            }],
       //基本信息
-      detail: {}
+      detail: {},
+
+      detail:{
+        enterpriseNo:"",//企业编号
+      }
     };
   },
   mounted() {
-    // this.getdetail();
+    this.getdetail();
   },
   methods: {
+
+    submit() {
+      this.detail.enterpriseNo=this.$route.query.enterpriseNo;
+      this.$axios({
+              method: 'post',
+              url: this.$store.state.domain +"/manage/editEnterprise",
+              data: this.detail,
+          })
+          .then(
+              response => {
+              if(response.data.code==0){
+                    this.detail = response.data.detail;
+              }else{
+                  this.$message.error(response.data.msg);
+              }
+              }
+            ).catch(
+              error => {
+              this.$message({
+                    dangerouslyUseHTMLString: true,//表示提示的是html片段
+                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
+                    error.response.data.message,
+                    type: "error"
+                  });
+              }
+            )
+    },
     fn(){
         if(this.willShow==true){
             this.willShow=false;
@@ -293,7 +311,7 @@ export default {
         }
     },
     inputchange(){
-        console.log(this.qq)
+        // console.log(detail)
     },
     handleCurrentChange(row, event, column) {
         console.log(row, event, column, event.currentTarget)
@@ -312,21 +330,30 @@ export default {
     },
 
     getdetail() {
-      let data = {
-        processNo: this.$route.query.processNo
-      };
-      this.$http
-        .post(this.$store.state.domain + "/loanManage/custInfo", data)
-        .then(
-          response => {
-            if (response.data.code == 0) {
-              this.detail = response.data.detail.result;
-            }
-          },
-          response => {
-            //console.log(response);
-          }
-        );
+      this.detail.enterpriseNo=this.$route.query.enterpriseNo;
+      this.$axios({
+              method: 'post',
+              url: this.$store.state.domain +"/manage/getEnterpriseDetail",
+              data: this.detail,
+          })
+          .then(
+              response => {
+              if(response.data.code==0){
+                    this.detail = response.data.detail;
+              }else{
+                  this.$message.error(response.data.msg);
+              }
+              }
+            ).catch(
+              error => {
+              this.$message({
+                    dangerouslyUseHTMLString: true,//表示提示的是html片段
+                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
+                    error.response.data.message,
+                    type: "error"
+                  });
+              }
+            )
     }
   },
   watch: {},

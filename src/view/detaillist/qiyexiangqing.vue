@@ -19,82 +19,86 @@
         <ul>
           <li>
             <label>企业名称：</label>
-            {{detail.custName}}
+            {{detail.enterpriseName}}
           </li>
           <li>
             <label>注册资本：</label>
-            {{detail.age}}
+            {{detail.registeredCapital}}
           </li>
           <li>
             <label>实缴资本：</label>
-            {{detail.applyLimit}}
+            {{detail.paidCapital}}
           </li>
           <li>
-            <label>成立起止日：</label>
-            {{detail.applyTerm}}{{detail.month}}
+            <label>成立开始日：</label>
+            {{detail.startingDate}}
+          </li>
+          <li>
+            <label>成立有效截止日：</label>
+            {{detail.endingDate}}
           </li>
           <li>
             <label>是否为一般纳税人：</label>
-            {{detail.useFor}}
+            {{detail.generalTaxpayers}}
           </li>
 
           <li>
             <label>法定代表人姓名：</label>
-            {{detail.goods}}
+            {{detail.legalName}}
           </li>
 
           <li>
             <label>法定代表人身份证号码：</label>
-            {{detail.goodsMoney}}
+            {{detail.legalIdCard}}
           </li>
           <li>
             <label>法定代表人联系电话：</label>
-            {{detail.occupation}}
+            {{detail.legalPhone}}
           </li>
           <li style="width: 100%;">
             <label>统一社会征信号码或营业执照号码：</label>
-            {{detail.idNo}}
+            {{detail.socialCode}}
           </li>
           <li style="width: 100%;">
             <label>注册地址：</label>
-            {{detail.phone}}
+            {{detail.registeredAddress}}
           </li>
           <li style="width: 100%;">
             <label>实际经营地址：</label>
-            {{detail.sex}}
+            {{detail.businessAddress}}
           </li>
 
           <div class="tab-dd">
             <el-table
-              :data="this.detail.contactList"
+              :data="this.detail.controlList"
               size="mini"
               border
               style="color:blue; font-size:8px"
             >
-              <el-table-column prop="contactName" label="实际控制人姓名" align="center"></el-table-column>
-              <el-table-column prop="contactPhone" label="实际控制人身份证号码" align="center"></el-table-column>
-              <el-table-column prop="contactRelationship" label="实际控制人联系电话" align="center"></el-table-column>
+              <el-table-column prop="controlName" label="实际控制人姓名" align="center"></el-table-column>
+              <el-table-column prop="controlIdCard" label="实际控制人身份证号码" align="center"></el-table-column>
+              <el-table-column prop="controlPhone" label="实际控制人联系电话" align="center"></el-table-column>
             </el-table>
           </div>
 
           <div class="tab-dd">
             <el-table
-              :data="this.detail.contactList"
+              :data="this.detail.businessList"
               size="mini"
               border
               style="color:blue; font-size:8px"
             >
-              <el-table-column prop="contactName" label="业务对接人姓名" align="center"></el-table-column>
-              <el-table-column prop="contactPhone" label="业务对接人联系电话" align="center"></el-table-column>
-              <el-table-column prop="contactRelationship" label="业务对接人联系邮箱" align="center"></el-table-column>
+              <el-table-column prop="businessName" label="业务对接人姓名" align="center"></el-table-column>
+              <el-table-column prop="businessPhone" label="业务对接人联系电话" align="center"></el-table-column>
+              <el-table-column prop="businessMail" label="业务对接人联系邮箱" align="center"></el-table-column>
             </el-table>
           </div>
 
           <div class="tab-dd">
-            <el-table :data="this.contactList" size="mini" border>
-              <el-table-column prop="contactName" label="财务对接人姓名" align="center"></el-table-column>
-              <el-table-column prop="contactPhone" label="财务对接人联系电话" align="center"></el-table-column>
-              <el-table-column prop="contactRelationship" label="财务对接人联系邮箱" align="center"></el-table-column>
+            <el-table :data="this.detail.financeList" size="mini" border>
+              <el-table-column prop="financeName" label="财务对接人姓名" align="center"></el-table-column>
+              <el-table-column prop="financePhone" label="财务对接人联系电话" align="center"></el-table-column>
+              <el-table-column prop="financeMail" label="财务对接人联系邮箱" align="center"></el-table-column>
             </el-table>
           </div>
         </ul>
@@ -119,8 +123,8 @@
             </tr>
 
             <tr>
-              <td></td>
-              <td></td>
+              <td>{{detail.approvalResult}}</td>
+              <td>{{detail.approvalRemark}}</td>
             </tr>
           </table>
         </div>
@@ -133,34 +137,43 @@ export default {
   data() {
     return {
       //基本信息
-      detail: {}
+      detail: {},
+
+      searchform:{
+        enterpriseNo:"",  //企业编号
+      }
     };
   },
   mounted() {
     this.getdetail();
   },
   methods: {
-    //查看认证
-    getLink(url) {
-      window.open(url);
-    },
 
     getdetail() {
-      let data = {
-        processNo: this.$route.query.processNo
-      };
-      this.$http
-        .post(this.$store.state.domain + "/loanManage/custInfo", data)
-        .then(
-          response => {
-            if (response.data.code == 0) {
-              this.detail = response.data.detail.result;
-            }
-          },
-          response => {
-            //console.log(response);
-          }
-        );
+      this.searchform.enterpriseNo=this.$route.query.enterpriseNo;
+      this.$axios({
+              method: 'post',
+              url: this.$store.state.domain +"/manage/getEnterpriseDetail",
+              data: this.searchform,
+          })
+          .then(
+              response => {
+              if(response.data.code==0){
+                    this.detail = response.data.detail;
+              }else{
+                  this.$message.error(response.data.msg);
+              }
+              }
+            ).catch(
+              error => {
+              this.$message({
+                    dangerouslyUseHTMLString: true,//表示提示的是html片段
+                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
+                    error.response.data.message,
+                    type: "error"
+                  });
+              }
+            )
     }
   },
   watch: {},
