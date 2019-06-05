@@ -77,7 +77,7 @@
             <!-- 点击查看详情 -->
               <template slot-scope="scope">
                 <el-button type="text" size="small"
-                 @click="gouserdetail(scope.row.processNo)">
+                 @click="gouserdetail(scope.row.processNo,scope.row.name)">
                   审核</el-button>
               </template>
           </el-table-column>
@@ -157,8 +157,16 @@ export default {
     },
 
     // 点击用户名跳转至详情页
-    gouserdetail(processNo) {
-      this.$router.push("/mydaiban/detail?processNo=" + processNo);
+    gouserdetail(processNo,name) {
+      if(name=='初审岗'){
+        this.$router.push("/mydaiban/chushendetail?processNo=" + processNo);
+      }else if(name=='终审岗'){
+        this.$router.push("/mydaiban/zhongshendetail?processNo=" + processNo);
+      }else if(name=='财务岗'){
+        this.$router.push("/mydaiban/caiwudetail?processNo=" + processNo);
+      }else if(name=='出纳岗'){
+        this.$router.push("/mydaiban/chunadetail?processNo=" + processNo);
+      }
     },
 
     // ajax异步数据交互：Vue 实例提供了 this.$http 服务可用于发送 HTTP 请求

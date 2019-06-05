@@ -2,7 +2,7 @@
   <div>
     <div class="line-bin">
           企业管理<i class="el-icon-arrow-right"></i>
-          <router-link to="/users/checkdetailist">开户审核</router-link>
+          <router-link to="/qiyejianguan/countcheck">开户审核</router-link>
           <i class="el-icon-arrow-right"></i>企业详情
       </div>
     <div class="el-table">
@@ -80,119 +80,119 @@
             <el-input v-else size="small" v-model="detail.businessAddress" placeholder="请输入内容" @change="inputchange()"></el-input> 
           </li>
 
-            <el-row style="padding:30px;text-align:right;width:100%;">
+            <!-- <el-row style="padding:30px;text-align:right;width:100%;">
             <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
             <el-button plain type="success" round size="mini" @click="fn()">保存</el-button>
-            </el-row>
+            </el-row> -->
 
           <div class="tab-dd">
-             <el-table :data="detail.controlList" border highlight-current-row @row-click="handleCurrentChange">
+             <el-table :data="detail.controlList" border highlight-current-row >
             <el-table-column prop="controlName" label="实际控制人姓名" align="center">
                 <template slot-scope="scope">
                     <span v-if="willShow">{{scope.row.controlName}}</span>
-                    <el-input v-else size="small" v-model="scope.row.controlName" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <el-input v-else size="small" v-model="scope.row.controlName" placeholder="请输入内容" ></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column prop="controlIdCard" label="身份证号码" align="center">
                 <template slot-scope="scope">
                     <span v-if="willShow">{{scope.row.controlIdCard}}</span>
-                    <el-input v-else size="small" v-model="scope.row.controlIdCard" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <el-input v-else size="small" v-model="scope.row.controlIdCard" placeholder="请输入内容" ></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column prop="controlPhone" label="联系电话" align="center">
                 <template slot-scope="scope">
                     <span v-if="willShow">{{scope.row.controlPhone}}</span>
-                    <el-input v-else size="small" v-model="scope.row.controlPhone" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <el-input v-else size="small" v-model="scope.row.controlPhone" placeholder="请输入内容" ></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
-                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, detail.controlList)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
           </div>
           
-          <el-row style="padding:30px;text-align:right;width:100%;">
+          <!-- <el-row style="padding:30px;text-align:right;width:100%;">
         <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
             <el-button plain type="success" round size="mini" @click="fn()">保存</el-button>
-          </el-row>
+          </el-row> -->
 
           <div class="tab-dd">
-             <el-table :data="detail.businessList" border highlight-current-row @row-click="handleCurrentChange">
+             <el-table :data="detail.businessList" border highlight-current-row >
             <el-table-column prop="businessName" label="业务对接人姓名" align="center">
                 <template slot-scope="scope">
                     <span v-if="willShow">{{scope.row.businessName}}</span>
-                    <el-input v-else size="small" v-model="scope.row.businessName" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <el-input v-else size="small" v-model="scope.row.businessName" placeholder="请输入内容" ></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column prop="businessPhone" label="联系电话" align="center">
                 <template slot-scope="scope">
                     <span v-if="willShow">{{scope.row.businessPhone}}</span>
-                    <el-input v-else size="small" v-model="scope.row.businessPhone" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <el-input v-else size="small" v-model="scope.row.businessPhone" placeholder="请输入内容" ></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column prop="businessMail" label="联系邮箱" align="center">
                 <template slot-scope="scope">
                     <span v-if="willShow">{{scope.row.businessMail}}</span>
-                    <el-input v-else size="small" v-model="scope.row.businessMail" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <el-input v-else size="small" v-model="scope.row.businessMail" placeholder="请输入内容" ></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
-                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, detail.businessList)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
           </div>
 
-          <el-row style="padding:30px;text-align:right;width:100%;">
+          <!-- <el-row style="padding:30px;text-align:right;width:100%;">
         <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
             <el-button plain type="success" round size="mini" @click="fn()">保存</el-button>
-          </el-row>
+          </el-row> -->
 
           <div class="tab-dd">
-             <el-table :data="detail.financeList" border highlight-current-row @row-click="handleCurrentChange">
+             <el-table :data="detail.financeList" border highlight-current-row >
             <el-table-column prop="financeName" label="财务对接人姓名" align="center">
                 <template slot-scope="scope">
                     <span v-if="willShow">{{scope.row.financeName}}</span>
-                    <el-input v-else size="small" v-model="scope.row.financeName" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <el-input v-else size="small" v-model="scope.row.financeName" placeholder="请输入内容" ></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column prop="financePhone" label="联系电话" align="center">
                 <template slot-scope="scope">
                     <span v-if="willShow">{{scope.row.financePhone}}</span>
-                    <el-input v-else size="small" v-model="scope.row.financePhone" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <el-input v-else size="small" v-model="scope.row.financePhone" placeholder="请输入内容" ></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column prop="financeMail" label="联系邮箱" align="center">
                 <template slot-scope="scope">
                     <span v-if="willShow">{{scope.row.financeMail}}</span>
-                    <el-input v-else size="small" v-model="scope.row.financeMail" placeholder="请输入内容" @change="handleEdit(scope.$index, scope.row)"></el-input> 
+                    <el-input v-else size="small" v-model="scope.row.financeMail" placeholder="请输入内容" ></el-input> 
                     
                 </template>
             </el-table-column>
             <el-table-column label="操作" align="center">
                 <template slot-scope="scope">
                     <!-- <el-button size="small" @click="handleEdit(scope.$index, scope.row)">编辑</el-button> -->
-                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    <el-button size="small" type="danger" @click="handleDelete(scope.$index, detail.financeList)">删除</el-button>
                 </template>
             </el-table-column>
         </el-table>
           </div>
 
-          <el-row style="padding:30px;text-align:right;width:100%;">
+          <!-- <el-row style="padding:30px;text-align:right;width:100%;">
         <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
             <el-button plain type="success" round size="mini" @click="fn()">保存</el-button>
-          </el-row>
+          </el-row> -->
 
         </ul>
       </table>
@@ -233,20 +233,20 @@
             v-else
             type="textarea"
             :autosize="{ minRows: 2, maxRows: 4}"
-            v-model="detail" placeholder="请输入内容" @change="inputchange()"></el-input> 
+            v-model="detail.approvalRemark" placeholder="请输入内容" @change="inputchange()"></el-input> 
                   </td>
             </tr>
           </table>
         </div>
         <el-row style="padding:30px;text-align:right;">
           <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
-            <el-button plain type="success" round size="mini" @click="fn()">保存</el-button>
+            <el-button plain type="success" round size="mini" @click="save()">保存</el-button>
         </el-row>
       </table>
 
       
     <el-row style="text-align:center;padding:30px;border-top:1px solid #eee;">
-          <el-col :span="24"><el-button type="primary" @click="fn()">提交</el-button></el-col>
+          <el-col :span="24"><el-button type="primary" @click="submit()">提交</el-button></el-col>
         </el-row>
     </div>
   </div>
@@ -264,9 +264,6 @@ export default {
           label: '拒绝'
         }],
 
-      //基本信息
-      detail: {},
-
       detail:{
         enterpriseNo:"",//企业编号
       }
@@ -279,6 +276,13 @@ export default {
 
     submit() {
       this.detail.enterpriseNo=this.$route.query.enterpriseNo;
+      this.detail.lstUpdUser = sessionStorage.getItem("name");
+      if(this.detail.generalTaxpayers == '是'){
+        this.detail.generalTaxpayers = '1'
+      } else{
+        this.detail.generalTaxpayers = '0'
+      }
+      
       this.$axios({
               method: 'post',
               url: this.$store.state.domain +"/manage/editEnterprise",
@@ -287,7 +291,13 @@ export default {
           .then(
               response => {
               if(response.data.code==0){
-                    this.detail = response.data.detail;
+
+                    this.$alert('恭喜您！信息提交成功！', '信息提交结果', {
+                                        confirmButtonText: '确定',
+                                        callback: action => {
+                                            console.log('信息提交成功')
+                                        }
+                                        });
               }else{
                   this.$message.error(response.data.msg);
               }
@@ -304,23 +314,17 @@ export default {
             )
     },
     fn(){
-        if(this.willShow==true){
             this.willShow=false;
-        }else{
-            this.willShow=true
-        }
     },
+    save(){
+            this.willShow=true;
+        },
     inputchange(){
         // console.log(detail)
     },
-    handleCurrentChange(row, event, column) {
-        console.log(row, event, column, event.currentTarget)
-    },
-    handleEdit(index, row) {
-        console.log(index, row);
-    },
-    handleDelete(index, row) {
-        console.log(index, row);
+
+    handleDelete(index, rows) {
+        rows.splice(index, 1);
     },
 
 

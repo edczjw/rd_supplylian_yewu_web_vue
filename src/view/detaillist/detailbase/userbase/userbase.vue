@@ -12,10 +12,10 @@
         </tr>
         <ul>
           <li>
-            <label >本次申请借款总额（元）：</label>{{detail.custName}}
+            <label >本次申请借款总额（元）：</label>{{detail.totalApplication}}
           </li>
           <li>
-            <label >本次申请借款最长期限（天）：</label>{{detail.idNo}}</li>
+            <label >本次申请借款最长期限（天）：</label>{{detail.applicationDeadline}}</li>
         </ul>
       </table>
     </div>
@@ -33,82 +33,87 @@
         <ul>
           <li>
             <label>企业名称：</label>
-            {{detail.custName}}
+            {{detail.enterpriseName}}
           </li>
           <li>
             <label>注册资本：</label>
-            {{detail.age}}
+            {{detail.registeredCapital}}
           </li>
           <li>
             <label>实缴资本：</label>
-            {{detail.applyLimit}}
+            {{detail.paidCapital}}
           </li>
           <li>
-            <label>成立起止日：</label>
-            {{detail.applyTerm}}{{detail.month}}
+            <label>成立开始日：</label>
+            {{detail.startingDate}}
+          </li>
+          <li>
+            <label>成立有效截止日：</label>
+            {{detail.endingDate}}
           </li>
           <li>
             <label>是否为一般纳税人：</label>
-            {{detail.useFor}}
+            <span v-if="detail.generalTaxpayers == '1'">是</span>
+            <span v-if="detail.generalTaxpayers == '0'">否</span>
           </li>
 
           <li>
             <label>法定代表人姓名：</label>
-            {{detail.goods}}
+            {{detail.legalName}}
           </li>
 
           <li>
             <label>法定代表人身份证号码：</label>
-            {{detail.goodsMoney}}
+            {{detail.legalIdCard}}
           </li>
           <li>
             <label>法定代表人联系电话：</label>
-            {{detail.occupation}}
+            {{detail.legalPhone}}
           </li>
           <li style="width: 100%;">
             <label>统一社会征信号码或营业执照号码：</label>
-            {{detail.idNo}}
+            {{detail.socialCode}}
           </li>
           <li style="width: 100%;">
             <label>注册地址：</label>
-            {{detail.phone}}
+            {{detail.registeredAddress}}
           </li>
           <li style="width: 100%;">
             <label>实际经营地址：</label>
-            {{detail.sex}}
+            {{detail.businessAddress}}
           </li>
 
           <div class="tab-dd">
             <el-table
-              :data="this.detail.contactList"
+              :data="this.detail.controlList"
               size="mini"
               border
               style="color:blue; font-size:8px"
             >
-              <el-table-column prop="contactName" label="实际控制人姓名" align="center"></el-table-column>
-              <el-table-column prop="contactPhone" label="实际控制人身份证号码" align="center"></el-table-column>
-              <el-table-column prop="contactRelationship" label="实际控制人联系电话" align="center"></el-table-column>
+              <el-table-column prop="controlName" label="实际控制人姓名" align="center"></el-table-column>
+              <el-table-column prop="controlIdCard" label="实际控制人身份证号码" align="center"></el-table-column>
+              <el-table-column prop="controlPhone" label="实际控制人联系电话" align="center"></el-table-column>
             </el-table>
           </div>
 
           <div class="tab-dd">
             <el-table
-              :data="this.detail.contactList"
+              :data="this.detail.businessList"
               size="mini"
               border
               style="color:blue; font-size:8px"
             >
-              <el-table-column prop="contactName" label="业务对接人姓名" align="center"></el-table-column>
-              <el-table-column prop="contactPhone" label="业务对接人联系电话" align="center"></el-table-column>
-              <el-table-column prop="contactRelationship" label="业务对接人联系邮箱" align="center"></el-table-column>
+              <el-table-column prop="businessName" label="业务对接人姓名" align="center"></el-table-column>
+              <el-table-column prop="businessPhone" label="业务对接人联系电话" align="center"></el-table-column>
+              <el-table-column prop="businessMail" label="业务对接人联系邮箱" align="center"></el-table-column>
             </el-table>
           </div>
 
           <div class="tab-dd">
-            <el-table :data="this.contactList" size="mini" border>
-              <el-table-column prop="contactName" label="财务对接人姓名" align="center"></el-table-column>
-              <el-table-column prop="contactPhone" label="财务对接人联系电话" align="center"></el-table-column>
-              <el-table-column prop="contactRelationship" label="财务对接人联系邮箱" align="center"></el-table-column>
+            <el-table :data="this.detail.financeList" size="mini" border>
+              <el-table-column prop="financeName" label="财务对接人姓名" align="center"></el-table-column>
+              <el-table-column prop="financePhone" label="财务对接人联系电话" align="center"></el-table-column>
+              <el-table-column prop="financeMail" label="财务对接人联系邮箱" align="center"></el-table-column>
             </el-table>
           </div>
         </ul>
@@ -129,9 +134,9 @@
           <li>
             <label >银行名称：</label>{{detail.bankName}}</li>
           <li>
-            <label >账户户名：</label>{{detail.bankMobile}}</li>
+            <label >账户户名：</label>{{detail.accountName}}</li>
           <li>
-            <label >银行支行名称：</label>{{detail.cardResult}}</li>
+            <label >银行支行名称：</label>{{detail.bankBranchName}}</li>
           
         </ul>
       </table>
@@ -147,25 +152,28 @@
         </tr>
         <ul class="place">
           <li>
-            <label >近三年经营收入金额：</label>{{detail.status}}</li>
+            <label >近三年经营收入金额：</label>{{detail.threeYearIncome}}</li>
           <li>
-            <label >近三年的利润金额：</label>{{detail.preApproveMoney}}</li>
+            <label >近三年的利润金额：</label>{{detail.threeYearProfit}}</li>
           <li>
-            <label >近三年的开票金额：</label>{{detail.preApproveRepayMethod}}</li>
+            <label >近三年的开票金额：</label>{{detail.threeYearInvoice}}</li>
           <li>
-            <label >近三年的纳税金额：</label>{{detail.preApproveMonthRate}}</li>
+            <label >近三年的纳税金额：</label>{{detail.threeYearTaxes}}</li>
           <li>
-            <label >当前金融机构借贷余额：</label>{{detail.preApproveTerm}}</li>
+            <label >当前金融机构借贷余额：</label>{{detail.financialLendingBalance}}</li>
           <li>
-            <label >当前非金融机构融资余额：</label>{{detail.refuseReason}}</li> 
+            <label >当前非金融机构融资余额：</label>{{detail.unfinancialLendingBalance}}</li> 
           <li>
-            <label >对外担保情况：</label>{{detail.preApproveRepayMethod}}</li>
+            <label >对外担保情况：</label>
+            <span v-if="detail.externalGuarantees == '0'">无</span>
+            <span v-if="detail.externalGuarantees == '1'">有</span>
+            </li>
           <li>
-            <label >担保人：</label>{{detail.preApproveMonthRate}}</li>
+            <label >担保人：</label>{{detail.warrantorName}}</li>
           <li>
-            <label >担保金额：</label>{{detail.preApproveTerm}}</li>
+            <label >担保金额：</label>{{detail.amountGuaranteed}}</li>
           <li>
-            <label >担保期限：</label>{{detail.refuseReason}}</li> 
+            <label >担保期限：</label>{{detail.warrantyPeriod}}</li> 
          
             
         </ul>
@@ -183,27 +191,27 @@
         <ul>
              
           <li>
-            <label >付款主体名称：</label>{{detail.innerCredits}}</li>
+            <label >付款主体名称：</label>{{detail.paymentSubject}}</li>
         <li>
-            <label >开始合作期限：</label>{{detail.innerCredits}}</li>
+            <label >开始合作期限：</label>{{detail.periodCooperation}}</li>
         <li>
-            <label >过去两年交易额：</label>{{detail.innerCredits}}</li>
+            <label >过去两年交易额：</label>{{detail.turnover}}</li>
         <li>
-            <label >付款账期：</label>{{detail.innerCredits}}</li>
+            <label >付款账期：</label>{{detail.paymentPeriod}}</li>
         <li>
-            <label >项目当前应收款总额：</label>{{detail.innerCredits}}</li>
+            <label >项目当前应收款总额：</label>{{detail.totalReceivables}}</li>
         <li>
-            <label >项目员工总数：</label>{{detail.innerCredits}}</li>
+            <label >项目员工总数：</label>{{detail.projectEmployees}}</li>
         <li>
-            <label >平均员工薪资：</label>{{detail.innerCredits}}</li>
+            <label >平均员工薪资：</label>{{detail.averageEmployeeSalary}}</li>
         <li>
-            <label >单个员工薪资上限：</label>{{detail.innerCredits}}</li>
+            <label >单个员工薪资上限：</label>{{detail.capEmployeeSalary}}</li>
         <li>
-            <label >本次借款指定回款及还款账户：</label>{{detail.innerCredits}}</li>
+            <label >本次借款指定回款及还款账户：</label>{{detail.repaymentAccount}}</li>
         <li>
-            <label >本次借款质押的应收款金额：</label>{{detail.innerCredits}}</li>
+            <label >本次借款质押的应收款金额：</label>{{detail.pledgedReceivables}}</li>
         <li>
-            <label >本次借款担保方式：</label>{{detail.innerCredits}}</li>
+            <label >本次借款担保方式：</label>{{detail.borrowingGuarantee}}</li>
           
         </ul>
       </table>
@@ -230,23 +238,32 @@ export default {
     },
 
     getdetail() {
-      let data={
-        processNo:this.$route.query.processNo
-      };
-      this.$http
-        .post(this.$store.state.domain +"/loanManage/custInfo",data)
-        .then(
-          response => {
-            if (response.data.code == 0) {
-              this.detail = response.data.detail.result;
-
-            }
-          },
-          response => {
-            //console.log(response);
-          }
-        );
-    }
+      var processNo=this.$route.query.processNo;
+      this.$axios({
+              method: 'post',
+              url: this.$store.state.domain +"/manage/case/particulars",
+              data: {
+                processNo:processNo
+              }
+          })
+          .then(
+              response => {
+              if(response.data.code==0){
+                    this.detail = response.data.detail.result
+              }else{
+                  this.$message.error(response.data.msg);
+              }
+              }
+            ).catch(
+              error => {
+              this.$message({
+                    dangerouslyUseHTMLString: true,//表示提示的是html片段
+                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
+                    error.response.data.message,
+                    type: "error"
+                  });
+              }
+            )}
   },
   watch: {},
   components: {}

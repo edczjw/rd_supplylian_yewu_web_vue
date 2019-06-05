@@ -120,14 +120,38 @@ export default new Router({
                                   auth: true
                                 }
                               },{
-                                // 我的待办详情以及下载
-                                  path: '/mydaiban/detail',
-                                  name: '待办详情',
-                                  component: require('../view/detaillist/daibandetail/daibandetail.vue').default,
+                                // 初审待办详情以及下载
+                                  path: '/mydaiban/chushendetail',
+                                  name: '初审待办详情',
+                                  component: require('../view/detaillist/daibandetail/chushendaibandetail.vue').default,
                                   meta: {
                                     auth: true
                                   }
                                 },{
+                                  // 终审待办详情以及下载
+                                    path: '/mydaiban/zhongshendetail',
+                                    name: '终审待办详情',
+                                    component: require('../view/detaillist/daibandetail/zhongshendaibandetail.vue').default,
+                                    meta: {
+                                      auth: true
+                                    }
+                                  },{
+                                    // 财务待办详情以及下载
+                                      path: '/mydaiban/caiwudetail',
+                                      name: '财务待办详情',
+                                      component: require('../view/detaillist/daibandetail/caiwudaibandetail.vue').default,
+                                      meta: {
+                                        auth: true
+                                      }
+                                    },{
+                                      // 出纳待办详情以及下载
+                                        path: '/mydaiban/chunadetail',
+                                        name: '出纳待办详情',
+                                        component: require('../view/detaillist/daibandetail/chunadaibandetail.vue').default,
+                                        meta: {
+                                          auth: true
+                                        }
+                                      },{
                                   // 手动入账详情
                                     path: '/shougongruzhang/detail',
                                     name: '手工入账详情',
