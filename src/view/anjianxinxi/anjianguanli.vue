@@ -19,7 +19,13 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="案件状态" prop="status">
-                  <el-input v-model="searchform.status" clearable></el-input>
+                  <el-select v-model="searchform.status" placeholder="请选择企业状态" clearable>
+                    <!-- 从后台要的数据 -->
+                    <el-option v-for="item in statuslist"
+                              :label="item.desc"
+                              :key="item.type"
+                              :value="item.type"></el-option>
+                  </el-select>
                 </el-form-item>
               </el-col>
             </el-row>
@@ -113,6 +119,7 @@ export default {
       pageIndex: 1, //初始页
       pageSize: 50, //显示当前行的条数
 
+      statuslist:[],//
       //表格数据
       tableData: [],
 
@@ -129,10 +136,35 @@ export default {
   },
   // mounted只执行一次,在模板渲染成html后调用
   mounted() {
+    this.getstatues();    //获取案件状态
     this.getlist()
   },
 
   methods: {
+     getstatues(){
+      this.$axios({
+              method: 'post',
+              url: this.$store.state.domain +"/manage/case/status"
+          })
+          .then(
+              response => {
+              if(response.data.code==0){
+                    this.statuslist = response.data.detail.result;
+              }else{
+                  this.$message.error(response.data.msg);
+              }
+              }
+            ).catch(
+              error => {
+              this.$message({
+                    dangerouslyUseHTMLString: true,//表示提示的是html片段
+                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
+                    error.response.data.message,
+                    type: "error"
+                  });
+              }
+            )
+    },
     // 搜索功能
     search() {
       this.getlist();

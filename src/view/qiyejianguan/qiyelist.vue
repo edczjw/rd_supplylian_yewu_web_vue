@@ -19,7 +19,16 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="企业状态" prop="accountStatus">
-                  <el-input v-model="searchform.accountStatus" clearable></el-input>
+
+                  <el-select v-model="searchform.accountStatus" placeholder="请选择企业状态" clearable>
+                    <!-- 从后台要的数据 -->
+                    <el-option v-for="item in approvalStatusCodelist"
+                              :label="item.desc"
+                              :key="item.code"
+                              :value="item.code"></el-option>
+                  </el-select>
+                  </el-form-item>
+
                 </el-form-item>
               </el-col>
             </el-row>
@@ -85,7 +94,7 @@
           <el-table-column prop="legalName" label="法人姓名" align="center"></el-table-column>
           <el-table-column prop="legalPhone" label="法人手机号" align="center"></el-table-column>
           <el-table-column prop="createTime" label="申请时间" align="center"></el-table-column>
-          <el-table-column prop="status" label="企业状态" align="center"></el-table-column>
+          <el-table-column prop="accountStatus" label="企业状态" align="center"></el-table-column>
         </el-table>
         <!-- 分页 -->
         <div class="block">
@@ -115,6 +124,7 @@ export default {
       pageIndex: 1, //初始页
       pageSize: 50, //显示当前行的条数
 
+      approvalStatusCodelist:[],//企业状态
       //表格数据
       tableData: [],
 
@@ -131,11 +141,35 @@ export default {
   },
   // mounted只执行一次,在模板渲染成html后调用
   mounted() {
+    this.getstatues();//获取企业状态
     this.getlist();//获取用户列表
   },
 
   methods: {
-
+    getstatues(){
+      this.$axios({
+              method: 'post',
+              url: this.$store.state.domain +"/manage/getAccountStatus"
+          })
+          .then(
+              response => {
+              if(response.data.code==0){
+                    this.approvalStatusCodelist = response.data.detail.resultList;
+              }else{
+                  this.$message.error(response.data.msg);
+              }
+              }
+            ).catch(
+              error => {
+              this.$message({
+                    dangerouslyUseHTMLString: true,//表示提示的是html片段
+                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
+                    error.response.data.message,
+                    type: "error"
+                  });
+              }
+            )
+    },
     // 搜索功能
     search() {
       this.getlist();

@@ -71,7 +71,7 @@
              <!-- 点击查看详情 -->
               <template slot-scope="scope">
                 <el-button type="text" size="small"
-                 @click="gouserdetail(scope.row.processNo)">
+                 @click="gouserdetail(scope.row.processNo,scope.row.checkResult)">
                   {{scope.row.enterpriseName}}</el-button>
               </template>
           </el-table-column>
@@ -81,6 +81,12 @@
           <el-table-column prop="loanInitInterest" label="还款利息" align="center"></el-table-column>
           <el-table-column prop="loanInitFee" label="还款服务费" align="center"></el-table-column>
           <el-table-column prop="totalMoney" label="还款总额" align="center"></el-table-column>
+          <el-table-column prop="checkResult" label="审核结果" align="center">
+            <template slot-scope="scope">
+              <span v-if="scope.row.checkResult=='2'">通过</span>
+              <span v-if="scope.row.checkResult=='3'">拒绝</span>
+            </template>
+          </el-table-column>
           <el-table-column prop="paidOutDate" label="实还款时间" align="center"></el-table-column>
         </el-table>
         <!-- 分页 -->
@@ -115,10 +121,10 @@ export default {
       tableData: [],
 
       searchform: {
-        enterpriseName:"",  //企业名称
-        legalName:"",       //法人姓名
-        beginDate:"",       //开始时间
-        endDate:"",       //截止时间
+        // enterpriseName:"",  //企业名称
+        // legalName:"",       //法人姓名
+        // beginDate:"",       //开始时间
+        // endDate:"",       //截止时间
         pageIndex: 1,     //初始页
         pageSize: 50      //显示当前行的条数
       }
@@ -157,8 +163,14 @@ export default {
     },
 
     // 点击用户名跳转至详情页
-    gouserdetail(processNo) {
-      this.$router.push("/huankuanjilu/detail?processNo=" + processNo);
+    gouserdetail(processNo,checkResult) {
+      this.$router.push({
+                path:"/huankuanjilu/detail",
+                query:{
+                    processNo:processNo,
+                    checkResult:checkResult
+                    }
+                })
     },
 
     // ajax异步数据交互：Vue 实例提供了 this.$http 服务可用于发送 HTTP 请求
