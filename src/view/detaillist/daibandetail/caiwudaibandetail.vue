@@ -10,23 +10,23 @@
 
       <el-tabs v-model="tabname" type="card">
         <!-- 有两大板块，分别来自不同的页面 -->
-        <el-tab-pane label="基本信息" name="chushendaibanuserbase"></el-tab-pane>
+        <el-tab-pane label="基本信息" name="caiwudetailuserbase"></el-tab-pane>
         <el-tab-pane label="文件信息下载" name="userdownload"></el-tab-pane>
       </el-tabs>
-      <chushendaibanuserbase v-if="tabname=='chushendaibanuserbase'"></chushendaibanuserbase>
+      <caiwudetailuserbase v-if="tabname=='caiwudetailuserbase'"></caiwudetailuserbase>
       <userdownload v-if="tabname=='userdownload'"></userdownload>
     </div>
   </div>
 </template>
 <script>
-import chushendaibanuserbase from "./daibanuserbase/chushendaibanuserbase";
+import caiwudetailuserbase from "./daibanuserbase/caiwudetailuserbase";
 import userdownload from "../detailbase/userbase/userdownload";
 
 export default {
   data() {
     return {
       detail: {},
-      tabname: "chushendaibanuserbase",//默认打开的是基本信息
+      tabname: "caiwudetailuserbase",//默认打开的是基本信息
     };
   },
   mounted() {
@@ -37,7 +37,7 @@ export default {
   },
   watch: {},
   components: {
-    chushendaibanuserbase,
+    caiwudetailuserbase,
     userdownload
   }
 };

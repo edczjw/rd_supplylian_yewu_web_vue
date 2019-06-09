@@ -33,53 +33,53 @@
         <ul class="tab-ul">
           <li>
             <label>企业名称：</label>
-           <span v-if="willShow" >{{detail.enterpriseName}}</span>
+           <span >{{detail.enterpriseName}}</span>
           </li>
           <li>
             <label>注册资本：</label>
-            <span v-if="willShow" >{{detail.registeredCapital}}</span>
+            <span >{{detail.registeredCapital}}</span>
           </li>
           <li>
             <label>实缴资本：</label>
-            <span v-if="willShow" >{{detail.paidCapital}}</span>
+            <span >{{detail.paidCapital}}</span>
           </li>
           <li>
             <label>成立开始日：</label>
-            <span v-if="willShow" >{{detail.startingDate}}</span>
+            <span >{{detail.startingDate}}</span>
           </li>
           <li>
             <label>成立有效截止日：</label>
-            <span v-if="willShow" >{{detail.endingDate}}</span>
+            <span >{{detail.endingDate}}</span>
           </li>
           <li>
             <label>是否为一般纳税人：</label>
-            <span v-if="willShow" >{{detail.generalTaxpayers}}</span>
+            <span >{{detail.generalTaxpayers}}</span>
           </li>
 
           <li>
             <label>法定代表人姓名：</label>
-            <span v-if="willShow" >{{detail.legalName}}</span>
+            <span >{{detail.legalName}}</span>
           </li>
 
           <li>
             <label>法定代表人身份证号码：</label>
-            <span v-if="willShow" >{{detail.legalIdCard}}</span>
+            <span >{{detail.legalIdCard}}</span>
           </li>
           <li>
             <label>法定代表人联系电话：</label>
-            <span v-if="willShow" >{{detail.legalPhone}}</span>
+            <span >{{detail.legalPhone}}</span>
           </li>
           <li style="width: 100%;">
             <label>统一社会征信号码或营业执照号码：</label>
-            <span v-if="willShow" >{{detail.socialCode}}</span>
+            <span >{{detail.socialCode}}</span>
           </li>
           <li style="width: 100%;">
             <label>注册地址：</label>
-            <span v-if="willShow" >{{detail.registeredAddress}}</span>
+            <span >{{detail.registeredAddress}}</span>
           </li>
           <li style="width: 100%;">
             <label>实际经营地址：</label>
-            <span v-if="willShow" >{{detail.businessAddress}}</span>
+            <span>{{detail.businessAddress}}</span>
           </li>
 
           <div class="tab-dd">
@@ -249,23 +249,35 @@
         <ul class="tab-ul">
 
         <li >
-            <label >审批金额（元）：</label><span v-if="willShow" >{{detail.creditLimit}}</span>
-            <el-input v-else size="small" v-model="detail.creditLimit" placeholder="请输入内容" ></el-input> </li>
+            <label >审批金额（元）：</label>
+            <el-input size="small" v-model="detail.creditLimit" placeholder="请输入内容" ></el-input> </li>
         <li>
-            <label >日利率（%）：</label><span v-if="willShow" >{{detail.creditRate}}</span>
-            <el-input v-else size="small" v-model="detail.creditRate" placeholder="请输入内容" ></el-input> </li>
+            <label >日利率（%）：</label>
+            <el-input size="small" v-model="detail.creditRate" placeholder="请输入内容" ></el-input> </li>
         <li>
-            <label >借款天数（天）：</label><span v-if="willShow" >{{detail.creditTerm}}</span>
-            <el-input v-else size="small" v-model="detail.creditTerm" placeholder="请输入内容" ></el-input> </li>
+            <label >借款天数（天）：</label>
+            <el-input size="small" v-model="detail.creditTerm" placeholder="请输入内容" ></el-input> </li>
         <li>
-            <label >申请金额（元）：</label><span v-if="willShow" >{{detail.applyLimit}}</span>
-            <el-input v-else size="small" v-model="detail.applyLimit" placeholder="请输入内容" ></el-input> </li>
+            <label >咨询费率（%）：</label>
+            <el-input size="small" v-model="detail.consultationFeeRate" placeholder="请输入内容" ></el-input> </li>
+        <li style="width:100%">
+            <label >咨询费：</label><span>{{detail.consultationFee}}</span></li>
         <li>
-            <label >申请期限（天）：</label><span v-if="willShow" >{{detail.applyTerm}}</span>
-            <el-input v-else size="small" v-model="detail.applyTerm" placeholder="请输入内容" ></el-input> </li>
-        <li>
-            <label >服务费率（%）：</label><span v-if="willShow" >{{detail.creditFeeRate}}</span>
-            <el-input v-else size="small" v-model="detail.creditFeeRate" placeholder="请输入内容" ></el-input> </li>
+            <label >审批结果</label>
+            <el-select v-model="form.rtfState" placeholder="请选择">
+                        <el-option
+                        v-for="item in options"
+                        :key="item.value"
+                        :label="item.label"
+                        :value="item.value">
+                        </el-option>
+                    </el-select> </li>
+        <li style="width:100%;height:100px;">
+            <label >审批意见：</label>
+            <el-input 
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            v-model="form.remark" placeholder="请输入内容"></el-input> </li>
           
         </ul>
       </table>
@@ -283,10 +295,10 @@ export default {
   data() {
     return {
         options:[{
-          value: '选项1',
+          value: 'Pass',
           label: '通过'
         }, {
-          value: '选项2',
+          value: 'Reject',
           label: '拒绝'
         }],
         willShow:true,
@@ -295,6 +307,16 @@ export default {
         detail: {
           processNo:"",//案件编号
         },
+        
+
+        form:{
+          rtfState:"",//审批结果
+          creditLimit:"",
+          creditTerm:"",
+          creditRate:"",
+          consultationFeeRate:"",
+          consultationFee:""
+        }
     };
   },
   mounted() {
@@ -307,12 +329,40 @@ export default {
     },
 
      submit() {
-      this.detail.processNo=this.$route.query.processNo;
+      this.form.processNo=this.$route.query.processNo;
+      this.form.processNum=this.$route.query.processNum;
+      this.form.taskId=this.$route.query.taskId;
+      this.form.userId = sessionStorage.getItem("userId");//本地存储用户ID
+      if(this.detail.creditLimit == "" || this.detail.creditLimit==null){
+        alert("申请金额不能为空。")
+      }else{
+        this.form.creditLimit = this.detail.creditLimit
+      }
+      if(this.detail.creditTerm == "" || this.detail.creditTerm==null){
+        alert("申请期限不能为空。")
+      }else{
+        this.form.creditTerm = this.detail.creditTerm
+      }
+      if(this.detail.creditRate == "" || this.detail.creditRate==null){
+        alert("日利率不能为空。")
+      }else{
+        this.form.creditRate = this.detail.creditRate
+      }
+      if(this.detail.consultationFeeRate == "" || this.detail.consultationFeeRate==null){
+        alert("咨询费率不能为空。")
+      }else{
+        this.form.consultationFeeRate = this.detail.consultationFeeRate
+      }
+      if(this.detail.consultationFee == "" || this.detail.consultationFee==null){
+        alert("咨询费不能为空。")
+      }else{
+        this.form.consultationFee = this.detail.consultationFee
+      }
       
       this.$axios({
               method: 'post',
-              url: this.$store.state.domain +"/manage/updatefirstTrial",
-              data: this.detail,
+              url: this.$store.state.domain +"/manage/task/complete",
+              data: this.form,
           })
           .then(
               response => {
@@ -344,7 +394,6 @@ export default {
       },
       save(){
          this.detail.processNo=this.$route.query.processNo;
-      
       this.$axios({
               method: 'post',
               url: this.$store.state.domain +"/manage/updatefirstTrial",

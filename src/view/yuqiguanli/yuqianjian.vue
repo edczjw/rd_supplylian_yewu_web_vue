@@ -77,6 +77,7 @@
               >{{scope.row.enterpriseName}}</el-button>
             </template>
           </el-table-column>
+          
           <el-table-column prop="overdueDates" label="逾期天数" align="center"></el-table-column>
           <el-table-column prop="penaltyAcru" label="累计罚金" align="center"></el-table-column>
           <el-table-column prop="loanExpireDate" label="应还款日期" align="center"></el-table-column>

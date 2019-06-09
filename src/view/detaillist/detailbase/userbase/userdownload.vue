@@ -14,28 +14,28 @@
         <ul>
           <li>
             <label>前十大合作客户名单及年交易额：</label>
-            <a href=detail.cooperativeClients download="前十大合作客户名单及年交易额.zip">{{detail.cooperativeClients}}</a>
+            <a href=detail.cooperativeClients download="前十大合作客户名单及年交易额.zip">下载</a>
           </li>
           <li>
             <label>人力服务合同：</label>
-            <a href=detail.manpowerServiceContract download="人力服务合同.zip">{{detail.manpowerServiceContract}}</a>
+            <a href=detail.manpowerServiceContract download="人力服务合同.zip">下载</a>
           </li>
           <li>
             <label>5份以上劳动合同：</label>
-            <a href=detail.laborContract download="5份以上劳动合同.zip">{{detail.laborContract}}</a>
+            <a href=detail.laborContract download="5份以上劳动合同.zip">下载</a>
           </li>
           <li>
             <label>近一年的核心企业回款记录：</label>
-            <a href=detail.returnRecords download="近一年的核心企业回款记录.zip">{{detail.returnRecords}}</a>
+            <a href=detail.returnRecords download="近一年的核心企业回款记录.zip">下载</a>
           </li>
           <li>
             <label>本次融资对应的发薪名单、金额：</label>
-            <a href=detail.paymentList download="本次融资对应的发薪名单、金额.zip">{{detail.paymentList}}</a>
+            <a href=detail.paymentList download="本次融资对应的发薪名单、金额.zip">下载</a>
           </li>
 
           <li>
             <label>应收款对账凭证：</label>
-            <a href=detail.receivables download="应收款对账凭证.zip">{{detail.receivables}}</a>
+            <a href=detail.receivables download="应收款对账凭证.zip">下载</a>
           </li>
 
         </ul>

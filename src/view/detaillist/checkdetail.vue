@@ -257,10 +257,10 @@ export default {
     return {
         willShow:true,
         options:[{
-          value: '选项1',
+          value: '1',
           label: '通过'
         }, {
-          value: '选项2',
+          value: '0',
           label: '拒绝'
         }],
 
@@ -324,7 +324,12 @@ export default {
     },
 
     handleDelete(index, rows) {
+      // console.log(index)
+      if(index==0){
+        alert('至少留有一条数据！')
+      }else{
         rows.splice(index, 1);
+      }
     },
 
 

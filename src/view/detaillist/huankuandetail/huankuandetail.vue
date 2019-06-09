@@ -9,9 +9,12 @@
       <table class="jititable" border style="word-wrap:break-word; word-break:break-all;">
         <tr>
           <td>还款审核</td>
-          <td colspan="3">
+          <td colspan="1" style="color:red">
             <span v-if="this.checkResult=='2'">通过</span>
-            <span v-if="this.checkResult=='3'">拒绝</span></td>
+            <span v-if="this.checkResult=='3'">拒绝</span>
+            </td>
+            <td></td>
+            <td></td>
         </tr>
 
         <tr>
@@ -51,14 +54,16 @@
 
         <tr>
           <td>查看还款凭证</td>
-          <td colspan="3">{{detail.imagesUrl}}</td>
+          <td colspan="1"><a :href='detail.imagesUrl' target="_blank">预览</a></td>
+          <td></td>
+            <td></td>
         </tr>
 
         <tr>
           <td>应还款日期</td>
           <td>{{detail.loanExpireDate}}</td>
           <td>客户实还款时间</td>
-          <td>{{detail.repayAmt}}</td>
+          <td>{{detail.repayTime}}</td>
         </tr>
       </table>
   </div>
@@ -122,6 +127,7 @@ export default {
   text-align: center;
   border: 1px solid rgb(196, 197, 199);
   margin-top: 30px;
+  font-family: '宋体'
 }
 
 .jititable th {

@@ -69,6 +69,11 @@
           <el-table-column prop="processNo" label="案件编号" align="center"></el-table-column>
           <el-table-column prop="enterpriseName" label="企业名称" align="center">
           </el-table-column>
+          <el-table-column v-if="false" prop="processNum" label="流程实例号" align="center">
+          </el-table-column>
+          <el-table-column v-if="false" prop="taskId" label="人工任务id" align="center">
+          </el-table-column>
+          
           <el-table-column prop="legalName" label="法人姓名" align="center"></el-table-column>
           <el-table-column prop="legalPhone" label="法人手机号" align="center"></el-table-column>
           <el-table-column prop="createTime" label="提单时间" align="center"></el-table-column>
@@ -77,7 +82,7 @@
             <!-- 点击查看详情 -->
               <template slot-scope="scope">
                 <el-button type="text" size="small"
-                 @click="gouserdetail(scope.row.processNo,scope.row.name)">
+                 @click="gouserdetail(scope.row.processNo,scope.row.name,scope.row.processNum,scope.row.taskId)">
                   审核</el-button>
               </template>
           </el-table-column>
@@ -157,15 +162,43 @@ export default {
     },
 
     // 点击用户名跳转至详情页
-    gouserdetail(processNo,name) {
+    gouserdetail(processNo,name,processNum,taskId) {
       if(name=='初审岗'){
-        this.$router.push("/mydaiban/chushendetail?processNo=" + processNo);
+        this.$router.push({
+                path:"/mydaiban/chushendetail",
+                query:{
+                    processNo:processNo,
+                    processNum:processNum,
+                    taskId:taskId
+                    }
+                })
       }else if(name=='终审岗'){
-        this.$router.push("/mydaiban/zhongshendetail?processNo=" + processNo);
+        this.$router.push({
+                path:"/mydaiban/zhongshendetail",
+                query:{
+                    processNo:processNo,
+                    processNum:processNum,
+                    taskId:taskId
+                    }
+                })
       }else if(name=='财务岗'){
-        this.$router.push("/mydaiban/caiwudetail?processNo=" + processNo);
+        this.$router.push({
+                path:"/mydaiban/caiwudetail",
+                query:{
+                    processNo:processNo,
+                    processNum:processNum,
+                    taskId:taskId
+                    }
+                })
       }else if(name=='出纳岗'){
-        this.$router.push("/mydaiban/chunadetail?processNo=" + processNo);
+        this.$router.push({
+                path:"/mydaiban/chunadetail",
+                query:{
+                    processNo:processNo,
+                    processNum:processNum,
+                    taskId:taskId
+                    }
+                })
       }
     },
 

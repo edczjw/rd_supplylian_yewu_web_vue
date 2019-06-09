@@ -16,6 +16,15 @@
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-quanping4"></use>
       </svg></p>
+
+    <p class='right' title="密码修改">
+      <router-link to="/mimaxiugai/changemima" class="roulink">
+      <svg class="icon" aria-hidden="true">
+        <use xlink:href="#icon-mimazhongzhi"></use>
+      </svg>
+      </router-link>
+      </p>
+
     <p class='right' @click="tabcontrol" title="折叠菜单栏">
       <svg class="icon" aria-hidden="true">
         <use xlink:href="#icon-cebianlanshousuo"></use>

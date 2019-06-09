@@ -167,7 +167,16 @@ export default new Router({
                                       meta: {
                                         auth: true
                                       }
-                                    }]
+                                    }
+                                    ,{
+                                      // 密码修改
+                                        path: '/mimaxiugai/changemima',
+                                        name: '密码修改',
+                                        component: require('../view/mimachange/changemima.vue').default,
+                                        meta: {
+                                          auth: true
+                                        }
+                                      }]
       }
   ]
 })
