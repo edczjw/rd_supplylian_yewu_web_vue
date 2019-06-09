@@ -8,8 +8,8 @@
           <el-form ref="searchform" :model="searchform" label-width="90px" size="mini">
             <el-row :gutter="30">
               <el-col :span="6">
-                <el-form-item label="企业名称" prop="processNo">
-                  <el-input v-model="searchform.processNo" clearable></el-input>
+                <el-form-item label="企业名称" prop="enterpriseName">
+                  <el-input v-model="searchform.enterpriseName" clearable></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
@@ -121,10 +121,10 @@ export default {
       tableData: [],
 
       searchform: {
-        // enterpriseName:"",  //企业名称
-        // legalName:"",       //法人姓名
-        // beginDate:"",       //开始时间
-        // endDate:"",       //截止时间
+        enterpriseName:"",  //企业名称
+        legalName:"",       //法人姓名
+        beginDate:"",       //开始时间
+        endDate:"",       //截止时间
         pageIndex: 1,     //初始页
         pageSize: 50      //显示当前行的条数
       }

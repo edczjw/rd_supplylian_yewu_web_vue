@@ -172,7 +172,11 @@ export default {
           .then(
               response => {
               if(response.data.code==0){
-                    this.tableData = response.data.detail.resultList;
+                if(response.data.detail.resultList == null || response.data.detail.resultList==""){
+                  this.tableData = "";
+                }else{
+                  this.tableData = response.data.detail.resultList;
+                }
                     this.searchform.pageSize = response.data.detail.pageSize
                     this.searchform.pageIndex = response.data.detail.pageIndex
                     this.count = response.data.detail.count

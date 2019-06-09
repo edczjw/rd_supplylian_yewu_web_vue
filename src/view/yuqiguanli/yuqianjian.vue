@@ -8,8 +8,8 @@
           <el-form ref="searchform" :model="searchform" label-width="90px" size="mini">
             <el-row :gutter="30">
               <el-col :span="6">
-                <el-form-item label="企业名称" prop="processNo">
-                  <el-input v-model="searchform.processNo" clearable></el-input>
+                <el-form-item label="企业名称" prop="enterpriseName">
+                  <el-input v-model="searchform.enterpriseName" clearable></el-input>
                 </el-form-item>
               </el-col>
               <el-col :span="6">
