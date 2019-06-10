@@ -73,7 +73,6 @@
               :data="this.detail.controlList"
               size="mini"
               border
-              style="color:blue; font-size:8px"
             >
               <el-table-column prop="controlName" label="实际控制人姓名" align="center"></el-table-column>
               <el-table-column prop="controlIdCard" label="实际控制人身份证号码" align="center"></el-table-column>
@@ -86,7 +85,6 @@
               :data="this.detail.businessList"
               size="mini"
               border
-              style="color:blue; font-size:8px"
             >
               <el-table-column prop="businessName" label="业务对接人姓名" align="center"></el-table-column>
               <el-table-column prop="businessPhone" label="业务对接人联系电话" align="center"></el-table-column>

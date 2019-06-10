@@ -249,7 +249,7 @@
           <th colspan="6">
             <svg class="icon" aria-hidden="true">
               <use xlink:href="#icon-yinhangqia"></use>
-            </svg>终审审核</th>
+            </svg>财务审核</th>
         </tr>
         <ul class="tab-ul">
 
@@ -288,9 +288,6 @@ export default {
         options:[{
           value: 'Pass',
           label: '通过'
-        }, {
-          value: 'Reject',
-          label: '拒绝'
         }, {
           value: 'BackToFirst',
           label: '退回初审'
@@ -337,6 +334,7 @@ export default {
                                             console.log('信息提交成功')
                                         }
                                         });
+                                        this.$router.push("/mydaiban/mydaiban");//跳转
               }else{
                   this.$message.error(response.data.msg);
               }

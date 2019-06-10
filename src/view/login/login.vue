@@ -120,7 +120,7 @@ export default {
 .login-container {
   height: 100%;
 
-  background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1546952368746&di=412dbb3775756904ec05b2e0cb8e8d4c&imgtype=0&src=http%3A%2F%2Fphotos.tuchong.com%2F233870%2Ff%2F4486134.jpg');
+  background-image: url('https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1560161381881&di=56229e6a89ba12b0672a28fd798bc4e9&imgtype=0&src=http%3A%2F%2Fww1.sinaimg.cn%2Flarge%2F6252b293gw1fag0ygg2krj20xc0ir46j.jpg');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

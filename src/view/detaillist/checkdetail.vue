@@ -310,6 +310,7 @@ export default {
                                             console.log('信息提交成功')
                                         }
                                         });
+                                        this.$router.push("/qiyejianguan/countcheck");//跳转
               }else{
                   this.$message.error(response.data.msg);
               }

@@ -179,7 +179,9 @@
             <el-input v-else size="small" v-model="detail.unfinancialLendingBalance" placeholder="请输入内容" ></el-input> </li> 
           <li>
             <label >对外担保情况：</label>
-              <span  v-if="willShow" >{{detail.externalGuarantees}}</span>
+              <span  v-if="willShow" >
+                <span v-if="detail.externalGuarantees == '0'">否</span>
+            <span v-if="detail.externalGuarantees == '1'">是</span></span>
               <template  v-else>
               <el-radio-group v-model="detail.externalGuarantees" size="mini">
                 <el-radio border  label="1">是</el-radio>
@@ -323,6 +325,7 @@ export default {
         //基本信息
         detail: {
           processNo:"",//案件编号
+          consultationFee:0,
         },
         
 
@@ -353,6 +356,11 @@ export default {
       }
     },
     fee(){
+      if(this.detail.creditLimit == "" || this.detail.creditLimit == null){
+          this.detail.consultationFee = 0;
+      }else if(this.detail.consultationFeeRate == "" || this.detail.consultationFeeRate == null){
+          this.detail.consultationFee = 0;
+      }else
          this.detail.consultationFee = this.detail.creditLimit*this.detail.consultationFeeRate*0.01;
     },
     handleDelete(index, rows) {
@@ -405,6 +413,7 @@ export default {
                                             console.log('信息提交成功')
                                         }
                                         });
+                    this.$router.push("/mydaiban/mydaiban");//跳转
               }else{
                   this.$message.error(response.data.msg);
               }
