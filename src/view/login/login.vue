@@ -78,8 +78,11 @@ export default {
             if (response.data.code == 0) { 
               var username = response.data.detail.name;  
               var auditorid=response.data.detail.auditor_id;
+              var mobile=response.data.detail.mobile;
               
               sessionStorage.setItem("name", username);//本地存储用户名
+
+              sessionStorage.setItem("mobile", mobile);//本地存储账号
 
               sessionStorage.setItem("userId", auditorid);//本地存储用户ID
               this.$message({

@@ -8,7 +8,9 @@
 
             <el-submenu index="1">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-webicon07"></use>
+              </svg>
                 <span>企业管理</span>
               </template>
               <el-menu-item-group>
@@ -24,7 +26,9 @@
 
             <el-submenu index="2">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-zuoyeanjian"></use>
+              </svg>
                 <span>案件信息</span>
               </template>
               <el-menu-item-group>
@@ -36,7 +40,9 @@
 
             <el-submenu index="3">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-daibanshixiang"></use>
+              </svg>
                 <span>我的待办</span>
               </template>
               <el-menu-item-group>
@@ -48,7 +54,9 @@
 
             <el-submenu index="4">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-huankuan"></use>
+              </svg>
                 <span>入账审核</span>
               </template>
               <el-menu-item-group>
@@ -60,7 +68,9 @@
 
             <el-submenu index="5">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-caiwu"></use>
+              </svg>
                 <span>账务数据</span>
               </template>
               <el-menu-item-group>
@@ -75,7 +85,9 @@
 
             <el-submenu index="6">
               <template slot="title">
-                <i class="el-icon-location"></i>
+                <svg class="icon" aria-hidden="true">
+                <use xlink:href="#icon-daibanshixiang1"></use>
+              </svg>
                 <span>逾期管理</span>
               </template>
               <el-menu-item-group>
@@ -136,6 +148,9 @@
 .el-menu-item {
   text-align: center;
 }
-
+/* 图标样式 */
+svg {
+  padding: 3px 10px;
+}
 
 </style>

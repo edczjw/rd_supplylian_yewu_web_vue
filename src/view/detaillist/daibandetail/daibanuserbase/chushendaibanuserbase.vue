@@ -53,7 +53,12 @@
           </li>
           <li>
             <label>是否为一般纳税人：</label>
-            <span >{{detail.generalTaxpayers}}</span>
+            <span v-if="detail.generalTaxpayers=='0'">
+              否
+              </span>
+              <span v-if="detail.generalTaxpayers=='1'">
+              是
+              </span>
           </li>
 
           <li>
@@ -87,7 +92,7 @@
               :data="detail.controlList"
               size="mini"
               border
-              style="color:blue; font-size:8px"
+              style="font-size:8px"
             >
               <el-table-column prop="controlName" label="实际控制人姓名" align="center"></el-table-column>
               <el-table-column prop="controlIdCard" label="实际控制人身份证号码" align="center"></el-table-column>
@@ -100,7 +105,7 @@
               :data="detail.businessList"
               size="mini"
               border
-              style="color:blue; font-size:8px"
+              style="font-size:8px"
             >
               <el-table-column prop="businessName" label="业务对接人姓名" align="center"></el-table-column>
               <el-table-column prop="businessPhone" label="业务对接人联系电话" align="center"></el-table-column>
@@ -109,7 +114,7 @@
           </div>
 
           <div class="tab-dd">
-            <el-table :data="this.detail.financeList" size="mini" border>
+            <el-table :data="this.detail.financeList" size="mini" border style="font-size:8px">
               <el-table-column prop="financeName" label="财务对接人姓名" align="center"></el-table-column>
               <el-table-column prop="financePhone" label="财务对接人联系电话" align="center"></el-table-column>
               <el-table-column prop="financeMail" label="财务对接人联系邮箱" align="center"></el-table-column>
@@ -173,8 +178,15 @@
             <label >当前非金融机构融资余额：</label><span v-if="willShow" >{{detail.unfinancialLendingBalance}}</span>
             <el-input v-else size="small" v-model="detail.unfinancialLendingBalance" placeholder="请输入内容" ></el-input> </li> 
           <li>
-            <label >对外担保情况：</label><span v-if="willShow" >{{detail.externalGuarantees}}</span>
-            <el-input v-else size="small" v-model="detail.externalGuarantees" placeholder="请输入内容" ></el-input> </li>
+            <label >对外担保情况：</label>
+              <span  v-if="willShow" >{{detail.externalGuarantees}}</span>
+              <template  v-else>
+              <el-radio-group v-model="detail.externalGuarantees" size="mini">
+                <el-radio border  label="1">是</el-radio>
+                <el-radio border  label="0">否</el-radio>
+              </el-radio-group>
+              </template>
+          </li>
           <li>
             <label >担保人：</label><span v-if="willShow" >{{detail.warrantorName}}</span>
             <el-input v-else size="small" v-model="detail.warrantorName" placeholder="请输入内容" ></el-input> </li>
@@ -250,16 +262,21 @@
 
         <li >
             <label >审批金额（元）：</label>
-            <el-input size="small" v-model="detail.creditLimit" placeholder="请输入内容" ></el-input> </li>
+            <span v-if="willShow" >{{detail.creditLimit}}</span>
+            <el-input v-else size="small" v-model="detail.creditLimit" @blur="docheck()" placeholder="请输入内容" ></el-input>
+             </li>
         <li>
             <label >日利率（%）：</label>
-            <el-input size="small" v-model="detail.creditRate" placeholder="请输入内容" ></el-input> </li>
+            <span v-if="willShow" >{{detail.creditRate}}</span>
+            <el-input v-else size="small" v-model="detail.creditRate" placeholder="请输入内容" ></el-input> </li>
         <li>
             <label >借款天数（天）：</label>
-            <el-input size="small" v-model="detail.creditTerm" placeholder="请输入内容" ></el-input> </li>
+            <span v-if="willShow" >{{detail.creditTerm}}</span>
+            <el-input v-else size="small" v-model="detail.creditTerm" @blur="docheck2()" placeholder="请输入内容" ></el-input> </li>
         <li>
             <label >咨询费率（%）：</label>
-            <el-input size="small" v-model="detail.consultationFeeRate" placeholder="请输入内容" ></el-input> </li>
+            <span v-if="willShow" >{{detail.consultationFeeRate}}</span>
+            <el-input v-else size="small" v-model="detail.consultationFeeRate" placeholder="请输入内容" @blur="fee()"></el-input> </li>
         <li style="width:100%">
             <label >咨询费：</label><span>{{detail.consultationFee}}</span></li>
         <li>
@@ -315,6 +332,7 @@ export default {
           creditTerm:"",
           creditRate:"",
           consultationFeeRate:"",
+          consultationFee:"",
           consultationFee:""
         }
     };
@@ -323,7 +341,20 @@ export default {
     this.getdetail();
   },
   methods: {
-    
+    docheck(){
+      if(this.detail.creditLimit<10000 || this.detail.creditLimit>10000000){
+        this.$message.error("审批金额填写范围必须大于或等于10000并且小于或等于10000000！");
+      }
+    },
+
+    docheck2(){
+      if(this.detail.creditTerm<7 || this.detail.creditTerm>180){
+        this.$message.error("借款天数填写范围必须大于或等于7并且小于或等于180！");
+      }
+    },
+    fee(){
+         this.detail.consultationFee = this.detail.creditLimit*this.detail.consultationFeeRate*0.01;
+    },
     handleDelete(index, rows) {
         rows.splice(index, 1);
     },
@@ -334,27 +365,27 @@ export default {
       this.form.taskId=this.$route.query.taskId;
       this.form.userId = sessionStorage.getItem("userId");//本地存储用户ID
       if(this.detail.creditLimit == "" || this.detail.creditLimit==null){
-        alert("申请金额不能为空。")
+        this.$message.error("申请金额不能为空。");
       }else{
         this.form.creditLimit = this.detail.creditLimit
       }
       if(this.detail.creditTerm == "" || this.detail.creditTerm==null){
-        alert("申请期限不能为空。")
+        this.$message.error("申请期限不能为空。");
       }else{
         this.form.creditTerm = this.detail.creditTerm
       }
       if(this.detail.creditRate == "" || this.detail.creditRate==null){
-        alert("日利率不能为空。")
+        this.$message.error("日利率不能为空。");
       }else{
         this.form.creditRate = this.detail.creditRate
       }
       if(this.detail.consultationFeeRate == "" || this.detail.consultationFeeRate==null){
-        alert("咨询费率不能为空。")
+        this.$message.error("咨询费率不能为空。");
       }else{
         this.form.consultationFeeRate = this.detail.consultationFeeRate
       }
       if(this.detail.consultationFee == "" || this.detail.consultationFee==null){
-        alert("咨询费不能为空。")
+        this.$message.error("咨询费不能为空。");
       }else{
         this.form.consultationFee = this.detail.consultationFee
       }
@@ -393,7 +424,7 @@ export default {
             this.willShow=false;
       },
       save(){
-         this.detail.processNo=this.$route.query.processNo;
+         this.detail.processNo = this.$route.query.processNo;
       this.$axios({
               method: 'post',
               url: this.$store.state.domain +"/manage/updatefirstTrial",
@@ -478,7 +509,7 @@ export default {
 
   li {
     line-height: 40px;
-    width: 37%;
+    width: 47%;
     height: 50px;
 
     label {
@@ -512,5 +543,17 @@ svg {
 .el-table th {
   color: rgba(204, 160, 102, 0.925) !important;
   background-color: rgba(245, 244, 236, 0.979) !important;
+}
+
+
+/* 图标样式 */
+svg {
+  padding: 3px 10px;
+}
+
+.el-radio-group{
+  label{
+    width: 60px !important;
+  }
 }
 </style>

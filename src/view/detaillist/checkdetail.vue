@@ -217,7 +217,10 @@
 
             <tr>
               <td>
-                  <span v-if="willShow" >{{detail.approvalResult}}</span>
+                  <span v-if="willShow" >
+                    <span v-if="detail.approvalResult=='1'">通过</span>
+                    <span v-if="detail.approvalResult=='0'">拒绝</span>
+                    </span>
                     <el-select v-else v-model="detail.approvalResult" placeholder="请选择">
                         <el-option
                         v-for="item in options"
@@ -228,7 +231,9 @@
                     </el-select>
                 </td>
               <td>
-                  <span v-if="willShow" >{{detail.approvalRemark}}</span>
+                  <span v-if="willShow" >
+                    {{detail.approvalRemark}}
+                    </span>
             <el-input 
             v-else
             type="textarea"
@@ -266,6 +271,10 @@ export default {
 
       detail:{
         enterpriseNo:"",//企业编号
+      },
+
+      form:{
+
       }
     };
   },
@@ -275,18 +284,21 @@ export default {
   methods: {
 
     submit() {
-      this.detail.enterpriseNo=this.$route.query.enterpriseNo;
-      this.detail.lstUpdUser = sessionStorage.getItem("name");
+      this.form.enterpriseNo=this.$route.query.enterpriseNo;
+      this.form.approvalRemark = this.detail.approvalRemark
+      this.form.approvalResult = this.detail.approvalResult
+      this.form.createUser = sessionStorage.getItem("mobile");
+      this.form.lstUpdUser = this.detail.lstUpdUser
       if(this.detail.generalTaxpayers == '是'){
-        this.detail.generalTaxpayers = '1'
+        this.form.generalTaxpayers = '1'
       } else{
-        this.detail.generalTaxpayers = '0'
+        this.form.generalTaxpayers = '0'
       }
       
       this.$axios({
               method: 'post',
-              url: this.$store.state.domain +"/manage/editEnterprise",
-              data: this.detail,
+              url: this.$store.state.domain +"/manage/approveEnterprise",
+              data: this.form,
           })
           .then(
               response => {
@@ -316,9 +328,48 @@ export default {
     fn(){
             this.willShow=false;
     },
-    save(){
-            this.willShow=true;
-        },
+
+     save(){
+      this.detail.enterpriseNo=this.$route.query.enterpriseNo;
+      this.detail.lstUpdUser = sessionStorage.getItem("name");
+      if(this.detail.generalTaxpayers == '是'){
+        this.detail.generalTaxpayers = '1'
+      } else{
+        this.detail.generalTaxpayers = '0'
+      }
+      
+      this.$axios({
+              method: 'post',
+              url: this.$store.state.domain +"/manage/editEnterprise",
+              data: this.detail,
+          })
+          .then(
+              response => {
+              if(response.data.code==0){
+                    this.willShow=true;
+                    this.$alert('恭喜您！信息保存成功！', '信息保存结果', {
+                                        confirmButtonText: '确定',
+                                        callback: action => {
+                                            // console.log('信息保存成功')
+                                            // this.getdetail()
+                                        }
+                                        });
+              }else{
+                  this.$message.error(response.data.msg);
+              }
+              }
+            ).catch(
+              error => {
+              this.$message({
+                    dangerouslyUseHTMLString: true,//表示提示的是html片段
+                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
+                    error.response.data.message,
+                    type: "error"
+                  });
+              }
+            )
+          },
+
     inputchange(){
         // console.log(detail)
     },

@@ -131,4 +131,9 @@ body {
   font-size: 14px;
   margin-bottom: 10px;
 }
+
+/* 图标样式 */
+svg {
+  padding: 3px 10px;
+}
 </style>

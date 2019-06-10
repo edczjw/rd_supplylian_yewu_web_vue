@@ -117,14 +117,5 @@ export default {
   background: #fff;
 }
 
-.icon{
-    overflow: hidden;
-    width: 4.4em;
-    height: 4.4em;
-    vertical-align: -.9em;
-    fill: currentColor;
-    padding: 3px 5px;
-    color: red;
-}
 
 </style>

@@ -90,7 +90,12 @@
           </li>
           <li>
             <label>是否为一般纳税人：</label>
-            <span >{{detail.generalTaxpayers}}</span>
+            <span v-if="detail.generalTaxpayers=='0'">
+              否
+              </span>
+              <span v-if="detail.generalTaxpayers=='1'">
+              是
+              </span>
           </li>
 
           <li>
@@ -200,7 +205,8 @@
           <li>
             <label >当前非金融机构融资余额：</label><span v-if="willShow" >{{detail.unfinancialLendingBalance}}</span></li> 
           <li>
-            <label >对外担保情况：</label><span v-if="willShow" >{{detail.externalGuarantees}}</span> </li>
+            <label >对外担保情况：</label><span v-if="willShow" ><span v-if="detail.externalGuarantees == '0'">无</span>
+            <span v-if="detail.externalGuarantees == '1'">有</span></span> </li>
           <li>
             <label >担保人：</label><span v-if="willShow" >{{detail.warrantorName}}</span></li>
           <li>
