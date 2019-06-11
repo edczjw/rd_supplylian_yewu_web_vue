@@ -250,6 +250,10 @@
           
         </ul>
       </table>
+      <el-row style="text-align:center;padding:30px;">
+        <el-col :span="12"><el-button type="success" @click="fn()">修改</el-button></el-col>
+        <el-col :span="12"><el-button type="success"  @click="save()">保存</el-button></el-col>
+        </el-row>
     </div>
 
     <div class="el-table el-table--fit  el-table--enable-row-hover el-table--enable-row-transition">
@@ -264,25 +268,32 @@
 
         <li >
             <label >审批金额（元）：</label>
-            <span v-if="willShow" >{{detail.creditLimit}}</span>
-            <el-input v-else size="small" v-model="detail.creditLimit" @blur="docheck()" placeholder="请输入内容" ></el-input>
+            <!-- <span v-if="willShow" >{{detail.creditLimit}}</span> -->
+            <el-input  size="small" v-model="detail.creditLimit" @blur="docheck()" placeholder="请输入内容" ></el-input>
              </li>
         <li>
             <label >日利率（%）：</label>
-            <span v-if="willShow" >{{detail.creditRate}}</span>
-            <el-input v-else size="small" v-model="detail.creditRate" placeholder="请输入内容" ></el-input> </li>
+            <!-- <span v-if="willShow" >{{detail.creditRate}}</span> -->
+            <el-input  size="small" v-model="detail.creditRate" placeholder="请输入内容" ></el-input> </li>
         <li>
             <label >借款天数（天）：</label>
-            <span v-if="willShow" >{{detail.creditTerm}}</span>
-            <el-input v-else size="small" v-model="detail.creditTerm" @blur="docheck2()" placeholder="请输入内容" ></el-input> </li>
+            <!-- <span v-if="willShow" >{{detail.creditTerm}}</span> -->
+            <el-input  size="small" v-model="detail.creditTerm" @blur="docheck2()" placeholder="请输入内容" ></el-input> </li>
         <li>
             <label >咨询费率（%）：</label>
-            <span v-if="willShow" >{{detail.consultationFeeRate}}</span>
-            <el-input v-else size="small" v-model="detail.consultationFeeRate" placeholder="请输入内容" @blur="fee()"></el-input> </li>
-        <li style="width:100%">
+            <!-- <span v-if="willShow" >{{detail.consultationFeeRate}}</span> -->
+            <el-input  size="small" v-model="detail.consultationFeeRate" placeholder="请输入内容" @blur="fee()"></el-input> </li>
+        <li style="width:50%">
             <label >咨询费：</label><span>{{detail.consultationFee}}</span></li>
+        
+        <li style="width:50%;">
+            <label >审批意见：</label>
+            <el-input 
+            type="textarea"
+            :autosize="{ minRows: 2, maxRows: 4}"
+            v-model="form.remark" placeholder="请输入内容"></el-input> </li>
         <li>
-            <label >审批结果</label>
+            <label >审批结果：</label>
             <el-select v-model="form.rtfState" placeholder="请选择">
                         <el-option
                         v-for="item in options"
@@ -291,19 +302,12 @@
                         :value="item.value">
                         </el-option>
                     </el-select> </li>
-        <li style="width:100%;height:100px;">
-            <label >审批意见：</label>
-            <el-input 
-            type="textarea"
-            :autosize="{ minRows: 2, maxRows: 4}"
-            v-model="form.remark" placeholder="请输入内容"></el-input> </li>
+        
           
         </ul>
       </table>
-      <el-row style="text-align:center;padding:30px;border-top:1px solid #eee;">
-        <el-col :span="8"><el-button type="success" @click="fn()">修改</el-button></el-col>
-        <el-col :span="8"><el-button type="success"  @click="save()">保存</el-button></el-col>
-          <el-col :span="8"><el-button type="primary" @click="submit()">提交</el-button></el-col>
+      <el-row style="text-align:center;padding:30px;">
+          <el-col :span="24"><el-button type="primary" @click="submit()">提交</el-button></el-col>
         </el-row>
     </div>
     

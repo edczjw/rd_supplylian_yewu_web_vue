@@ -243,16 +243,13 @@
             </tr>
           </table>
         </div>
-        <el-row style="padding:30px;text-align:right;">
-          <el-button plain type="success" round size="mini" @click="fn()">修改</el-button>
-            <el-button plain type="success" round size="mini" @click="save()">保存</el-button>
+        <el-row style="padding:30px;text-align:center;">
+          <el-button  type="success" @click="fn()">修改</el-button>
+            <el-button  type="success"  @click="save()">保存</el-button>
+            <el-button type="primary" @click="submit()">提交</el-button>
         </el-row>
       </table>
 
-      
-    <el-row style="text-align:center;padding:30px;border-top:1px solid #eee;">
-          <el-col :span="24"><el-button type="primary" @click="submit()">提交</el-button></el-col>
-        </el-row>
     </div>
   </div>
 </template>

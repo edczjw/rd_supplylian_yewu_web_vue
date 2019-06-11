@@ -141,65 +141,77 @@ export default {
     search(){
       this.searchform.processNo = this.$route.query.processNo;
 
-      if(this.searchform.result == 'pass'){
-        if(this.searchform.repayAmt == "" || this.searchform.repayTime == ""){
-          alert("还款金额和还款到账时间不能为空！")
-        }
-        this.$axios({
-                    method: 'post',
-                    url: this.$store.state.domain +"/manage/cashier/cashieRepayApproval",
-                    data: this.searchform,
-                })
-                .then(
-                    response => {
-                    if(response.data.code==0){
-                          this.$message({
-                              message: '恭喜你，提交成功！',
-                              type: 'success'
-                            });
-                    }else{
-                        this.$message.error(response.data.msg);
+            if(this.searchform.result == 'pass'){
+              if(this.searchform.repayAmt == "" || this.searchform.repayTime == ""){
+                this.$message.error("还款金额和还款到账时间不能为空！")
+              }
+              
+                if(this.detail.totalMoney!=this.searchform.repayAmt){
+                    this.$message.error('客户实还金额必须与应还款总额相等！');
+                }
+                else{
+                      this.$axios({
+                                  method: 'post',
+                                  url: this.$store.state.domain +"/manage/cashier/cashieRepayApproval",
+                                  data: this.searchform,
+                              })
+                              .then(
+                                  response => {
+                                  if(response.data.code==0){
+                                        this.$message({
+                                            message: '恭喜你，提交成功！',
+                                            type: 'success'
+                                          });
+                                  }else{
+                                      this.$message.error(response.data.msg);
+                                  }
+                                  }
+                                ).catch(
+                                  error => {
+                                  this.$message({
+                                        dangerouslyUseHTMLString: true,//表示提示的是html片段
+                                        message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
+                                        error.response.data.message,
+                                        type: "error"
+                                      });
+                                  }
+                                )
                     }
-                    }
-                  ).catch(
-                    error => {
-                    this.$message({
-                          dangerouslyUseHTMLString: true,//表示提示的是html片段
-                          message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
-                          error.response.data.message,
-                          type: "error"
-                        });
-                    }
-                  )
-    }
-    else if(this.searchform.result == 'refuse'){
-        this.$axios({
-                    method: 'post',
-                    url: this.$store.state.domain +"/manage/cashier/cashieRepayApproval",
-                    data: this.searchform,
-                })
-                .then(
-                    response => {
-                    if(response.data.code==0){
-                          this.$message({
-                              message: '恭喜你，提交成功！',
-                              type: 'success'
-                            });
-                    }else{
-                        this.$message.error(response.data.msg);
-                    }
-                    }
-                  ).catch(
-                    error => {
-                    this.$message({
-                          dangerouslyUseHTMLString: true,//表示提示的是html片段
-                          message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
-                          error.response.data.message,
-                          type: "error"
-                        });
-                    }
-                  )
-    }
+          }
+    
+          else if(this.searchform.result == 'refuse'){
+            if(this.detail.totalMoney!=this.searchform.repayAmt){
+                    this.$message.error('客户实还金额必须与应还款总额相等！');
+                }
+                else{
+                        this.$axios({
+                                    method: 'post',
+                                    url: this.$store.state.domain +"/manage/cashier/cashieRepayApproval",
+                                    data: this.searchform,
+                                })
+                                .then(
+                                    response => {
+                                    if(response.data.code==0){
+                                          this.$message({
+                                              message: '恭喜你，提交成功！',
+                                              type: 'success'
+                                            });
+                                    }else{
+                                        this.$message.error(response.data.msg);
+                                    }
+                                    }
+                                  ).catch(
+                                    error => {
+                                    this.$message({
+                                          dangerouslyUseHTMLString: true,//表示提示的是html片段
+                                          message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
+                                          error.response.data.message,
+                                          type: "error"
+                                        });
+                                    }
+                                  )
+                          }
+                 }
       }
        
   },

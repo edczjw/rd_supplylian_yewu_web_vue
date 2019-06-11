@@ -78,7 +78,7 @@
           <el-table-column prop="loanInitPrin" label="放款金额" align="center"></el-table-column>
           <el-table-column prop="interestRate" label="利率（%）" align="center"></el-table-column>
           <el-table-column prop="month" label="期限（天）" align="center"></el-table-column>
-          <el-table-column prop="interestRateType" label="计息方式" align="center"></el-table-column>
+          <el-table-column prop="loanType" label="计息方式" align="center"></el-table-column>
           <el-table-column prop="borrowTime" label="手工放款时间" align="center"></el-table-column>
         </el-table>
         <!-- 分页 -->
