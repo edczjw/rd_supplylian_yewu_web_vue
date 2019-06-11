@@ -211,8 +211,8 @@ export default {
           .then(
               response => {
               if(response.data.code==0){
-                if(response.data.detail.resultList == null || response.data.detail.resultList==""){
-                  this.tableData = "";
+                if( response.data.detail == null || response.data.detail == '' ||  response.data.detail.resultList == null || response.data.detail.resultList == ""){
+                  this.tableData = []
                 }else{
                   this.tableData = response.data.detail.resultList;
                 }

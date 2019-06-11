@@ -162,6 +162,7 @@ export default {
                                             message: '恭喜你，提交成功！',
                                             type: 'success'
                                           });
+                                          this.$router.push("/ruzhangshenhe/shougongruzhang")
                                   }else{
                                       this.$message.error(response.data.msg);
                                   }
