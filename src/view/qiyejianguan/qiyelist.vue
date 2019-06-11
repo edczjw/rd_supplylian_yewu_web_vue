@@ -19,16 +19,15 @@
               </el-col>
               <el-col :span="6">
                 <el-form-item label="企业状态" prop="accountStatus">
-
                   <el-select v-model="searchform.accountStatus" placeholder="请选择企业状态" clearable>
                     <!-- 从后台要的数据 -->
-                    <el-option v-for="item in approvalStatusCodelist"
-                              :label="item.desc"
-                              :key="item.code"
-                              :value="item.code"></el-option>
+                    <el-option
+                      v-for="item in approvalStatusCodelist"
+                      :label="item.desc"
+                      :key="item.code"
+                      :value="item.code"
+                    ></el-option>
                   </el-select>
-                  </el-form-item>
-
                 </el-form-item>
               </el-col>
             </el-row>
@@ -75,21 +74,17 @@
 
         <!-- =============================== 展示表格数据框 =================================== -->
 
-        <el-table
-          :data="tableData"
-          border
-          size="medium"
-          stripe
-          style="width: 100%; height:100%;"
-        >
+        <el-table :data="tableData" border size="medium" stripe style="width: 100%; height:100%;">
           <el-table-column prop="enterpriseNo" label="企业编号" align="center"></el-table-column>
           <el-table-column prop="enterpriseName" label="企业名称" align="center">
             <!-- 点击查看详情 -->
-              <template slot-scope="scope">
-                <el-button type="text" size="small"
-                 @click="gouserdetail(scope.row.enterpriseNo)">
-                  {{scope.row.enterpriseName}}</el-button>
-              </template>
+            <template slot-scope="scope">
+              <el-button
+                type="text"
+                size="small"
+                @click="gouserdetail(scope.row.enterpriseNo)"
+              >{{scope.row.enterpriseName}}</el-button>
+            </template>
           </el-table-column>
           <el-table-column prop="legalName" label="法人姓名" align="center"></el-table-column>
           <el-table-column prop="legalPhone" label="法人手机号" align="center"></el-table-column>
@@ -124,51 +119,49 @@ export default {
       pageIndex: 1, //初始页
       pageSize: 50, //显示当前行的条数
 
-      approvalStatusCodelist:[],//企业状态
+      approvalStatusCodelist: [], //企业状态
       //表格数据
       tableData: [],
 
       searchform: {
-        enterpriseName:"",  //企业名称
-        legalName:"",       //法人姓名
-        accountStatus:"",   //企业状态
-        startDate:"",       //开始时间
-        endDate:"",       //截止时间
-        pageIndex: 1,     //初始页
-        pageSize: 50      //显示当前行的条数
+        enterpriseName: "", //企业名称
+        legalName: "", //法人姓名
+        accountStatus: "", //企业状态
+        startDate: "", //开始时间
+        endDate: "", //截止时间
+        pageIndex: 1, //初始页
+        pageSize: 50 //显示当前行的条数
       }
     };
   },
   // mounted只执行一次,在模板渲染成html后调用
   mounted() {
-    this.getstatues();//获取企业状态
-    this.getlist();//获取用户列表
+    this.getstatues(); //获取企业状态
+    this.getlist(); //获取用户列表
   },
 
   methods: {
-    getstatues(){
+    getstatues() {
       this.$axios({
-              method: 'post',
-              url: this.$store.state.domain +"/manage/getAccountStatus"
-          })
-          .then(
-              response => {
-              if(response.data.code==0){
-                    this.approvalStatusCodelist = response.data.detail.resultList;
-              }else{
-                  this.$message.error(response.data.msg);
-              }
-              }
-            ).catch(
-              error => {
-              this.$message({
-                    dangerouslyUseHTMLString: true,//表示提示的是html片段
-                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
-                    error.response.data.message,
-                    type: "error"
-                  });
-              }
-            )
+        method: "post",
+        url: this.$store.state.domain + "/manage/getAccountStatus"
+      })
+        .then(response => {
+          if (response.data.code == 0) {
+            this.approvalStatusCodelist = response.data.detail.resultList;
+          } else {
+            this.$message.error(response.data.msg);
+          }
+        })
+        .catch(error => {
+          this.$message({
+            dangerouslyUseHTMLString: true, //表示提示的是html片段
+            message:
+              '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> ' +
+              error.response.data.message,
+            type: "error"
+          });
+        });
     },
     // 搜索功能
     search() {
@@ -200,56 +193,63 @@ export default {
 
     // 点击用户名跳转至详情页
     gouserdetail(enterpriseNo) {
-        this.$router.push("/users/detailist?enterpriseNo=" + enterpriseNo);
+      this.$router.push("/users/detailist?enterpriseNo=" + enterpriseNo);
     },
 
     // ajax异步数据交互：Vue 实例提供了 this.$http 服务可用于发送 HTTP 请求
     getlist() {
-       this.$axios({
-              method: 'post',
-              url: this.$store.state.domain +"/manage/getEnterpriseList",
-              data: this.searchform,
-          })
-          .then(
-              response => {
-              if(response.data.code==0){
-                if( response.data.detail == null || response.data.detail == '' ||  response.data.detail.resultList == null || response.data.detail.resultList == ""){
-                  this.tableData = []
-                }else{
-                  this.tableData = response.data.detail.resultList;
-                }
-                    this.searchform.pageSize = response.data.detail.pageSize
-                    this.searchform.pageIndex = response.data.detail.pageIndex
-                    this.count = response.data.detail.count
-              }else{
-                if( response.data.detail == null || response.data.detail == '' ||  response.data.detail.resultList == null || response.data.detail.resultList == ""){
-                  this.tableData = []
-                  this.$message.error(response.data.msg);
-                }
-                  this.$message.error(response.data.msg);
-              }
-              }
-            ).catch(
-              error => {
-              this.$message({
-                    dangerouslyUseHTMLString: true,//表示提示的是html片段
-                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
-                    error.response.data.message,
-                    type: "error"
-                  });
-              }
-            )
+      this.$axios({
+        method: "post",
+        url: this.$store.state.domain + "/manage/getEnterpriseList",
+        data: this.searchform
+      })
+        .then(response => {
+          if (response.data.code == 0) {
+            if (
+              response.data.detail == null ||
+              response.data.detail == "" ||
+              response.data.detail.resultList == null ||
+              response.data.detail.resultList == ""
+            ) {
+              this.tableData = [];
+            } else {
+              this.tableData = response.data.detail.resultList;
+            }
+            this.searchform.pageSize = response.data.detail.pageSize;
+            this.searchform.pageIndex = response.data.detail.pageIndex;
+            this.count = response.data.detail.count;
+          } else {
+            if (
+              response.data.detail == null ||
+              response.data.detail == "" ||
+              response.data.detail.resultList == null ||
+              response.data.detail.resultList == ""
+            ) {
+              this.tableData = [];
+              this.$message.error(response.data.msg);
+            }
+            this.$message.error(response.data.msg);
+          }
+        })
+        .catch(error => {
+          this.$message({
+            dangerouslyUseHTMLString: true, //表示提示的是html片段
+            message:
+              '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> ' +
+              error.response.data.message,
+            type: "error"
+          });
+        });
     }
   },
   //过滤器，用于格式化时间格式
-    filters: {
-      formatDate(time) {
-        var date = new Date(time);
-        return formatDate(date, "yyyy-MM-dd hh:mm");
-      }
-    },
-}
-  
+  filters: {
+    formatDate(time) {
+      var date = new Date(time);
+      return formatDate(date, "yyyy-MM-dd hh:mm");
+    }
+  }
+};
 </script>
 
  <style lang='less'>

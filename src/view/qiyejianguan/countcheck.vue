@@ -61,27 +61,18 @@
 
         <!-- =============================== 展示表格数据框 =================================== -->
 
-        <el-table
-          :data="tableData"
-          border
-          size="medium"
-          stripe
-          style="width: 100%; height:100%;"
-        >
+        <el-table :data="tableData" border size="medium" stripe style="width: 100%; height:100%;">
           <el-table-column prop="enterpriseNo" label="企业编号" align="center"></el-table-column>
-          <el-table-column prop="enterpriseName" label="企业名称" align="center">
-          </el-table-column>
+          <el-table-column prop="enterpriseName" label="企业名称" align="center"></el-table-column>
           <el-table-column prop="legalName" label="法人姓名" align="center"></el-table-column>
           <el-table-column prop="legalPhone" label="法人手机号" align="center"></el-table-column>
           <el-table-column prop="createTime" label="申请时间" align="center"></el-table-column>
           <el-table-column prop="preApproveMonthRate" label="操作" align="center">
             <!-- 点击查看详情 -->
-              <template slot-scope="scope">
-                <el-button type="text" size="small"
-                 @click="gouserdetail(scope.row.enterpriseNo)">
-                  审核</el-button>
-              </template>
-            </el-table-column>
+            <template slot-scope="scope">
+              <el-button type="text" size="small" @click="gouserdetail(scope.row.enterpriseNo)">审核</el-button>
+            </template>
+          </el-table-column>
         </el-table>
         <!-- 分页 -->
         <div class="block">
@@ -115,13 +106,13 @@ export default {
       tableData: [],
 
       searchform: {
-        enterpriseName:"",  //企业名称
-        legalName:"",       //法人姓名
-        accountStatus:"",   //企业状态
-        startDate:"",       //开始时间
-        endDate:"",       //截止时间
-        pageIndex: 1,     //初始页
-        pageSize: 50      //显示当前行的条数
+        enterpriseName: "", //企业名称
+        legalName: "", //法人姓名
+        accountStatus: "", //企业状态
+        startDate: "", //开始时间
+        endDate: "", //截止时间
+        pageIndex: 1, //初始页
+        pageSize: 50 //显示当前行的条数
       }
     };
   },
@@ -131,7 +122,6 @@ export default {
   },
 
   methods: {
-
     // 搜索功能
     search() {
       this.searchform.pageIndex = 1;
@@ -162,44 +152,50 @@ export default {
 
     // 点击用户名跳转至详情页
     gouserdetail(enterpriseNo) {
-     this.$router.push("/users/checkdetailist?enterpriseNo=" + enterpriseNo);
+      this.$router.push("/users/checkdetailist?enterpriseNo=" + enterpriseNo);
     },
 
     getlist() {
-       this.$axios({
-              method: 'post',
-              url: this.$store.state.domain +"/manage/getApproveEnterpriseList",
-              data: this.searchform,
-          })
-          .then(
-              response => {
-              if(response.data.code==0){
-                if(response.data.detail.resultList == null || response.data.detail.resultList==""){
-                  this.tableData = "";
-                }else{
-                  this.tableData = response.data.detail.resultList;
-                }
-                    this.searchform.pageSize = response.data.detail.pageSize
-                    this.searchform.pageIndex = response.data.detail.pageIndex
-                    this.count = response.data.detail.count
-              }else{
-                if( response.data.detail == null || response.data.detail == '' ||  response.data.detail.resultList == null || response.data.detail.resultList == ""){
-                  this.tableData = []
-                  this.$message.error(response.data.msg);
-                }
-                  this.$message.error(response.data.msg);
-              }
-              }
-            ).catch(
-              error => {
-              this.$message({
-                    dangerouslyUseHTMLString: true,//表示提示的是html片段
-                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
-                    error.response.data.message,
-                    type: "error"
-                  });
-              }
-            )
+      this.$axios({
+        method: "post",
+        url: this.$store.state.domain + "/manage/getApproveEnterpriseList",
+        data: this.searchform
+      })
+        .then(response => {
+          if (response.data.code == 0) {
+            if (
+              response.data.detail.resultList == null ||
+              response.data.detail.resultList == ""
+            ) {
+              this.tableData = "";
+            } else {
+              this.tableData = response.data.detail.resultList;
+            }
+            this.searchform.pageSize = response.data.detail.pageSize;
+            this.searchform.pageIndex = response.data.detail.pageIndex;
+            this.count = response.data.detail.count;
+          } else {
+            if (
+              response.data.detail == null ||
+              response.data.detail == "" ||
+              response.data.detail.resultList == null ||
+              response.data.detail.resultList == ""
+            ) {
+              this.tableData = [];
+              this.$message.error(response.data.msg);
+            }
+            this.$message.error(response.data.msg);
+          }
+        })
+        .catch(error => {
+          this.$message({
+            dangerouslyUseHTMLString: true, //表示提示的是html片段
+            message:
+              '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> ' +
+              error.response.data.message,
+            type: "error"
+          });
+        });
     }
   },
 

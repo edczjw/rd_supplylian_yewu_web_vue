@@ -59,32 +59,25 @@
 
         <!-- =============================== 展示表格数据框 =================================== -->
 
-        <el-table
-          :data="tableData"
-          border
-          size="medium"
-          stripe
-          style="width: 100%; height:100%;"
-        >
+        <el-table :data="tableData" border size="medium" stripe style="width: 100%; height:100%;">
           <el-table-column prop="processNo" label="案件编号" align="center"></el-table-column>
-          <el-table-column prop="enterpriseName" label="企业名称" align="center">
-          </el-table-column>
-          <el-table-column v-if="false" prop="processNum" label="流程实例号" align="center">
-          </el-table-column>
-          <el-table-column v-if="false" prop="taskId" label="人工任务id" align="center">
-          </el-table-column>
-          
+          <el-table-column prop="enterpriseName" label="企业名称" align="center"></el-table-column>
+          <el-table-column v-if="false" prop="processNum" label="流程实例号" align="center"></el-table-column>
+          <el-table-column v-if="false" prop="taskId" label="人工任务id" align="center"></el-table-column>
+
           <el-table-column prop="legalName" label="法人姓名" align="center"></el-table-column>
           <el-table-column prop="legalPhone" label="法人手机号" align="center"></el-table-column>
           <el-table-column prop="createTime" label="提单时间" align="center"></el-table-column>
           <el-table-column prop="name" label="节点名称" align="center"></el-table-column>
           <el-table-column prop="preApproveMonthRate" label="操作" align="center">
             <!-- 点击查看详情 -->
-              <template slot-scope="scope">
-                <el-button type="text" size="small"
-                 @click="gouserdetail(scope.row.processNo,scope.row.name,scope.row.processNum,scope.row.taskId)">
-                  审核</el-button>
-              </template>
+            <template slot-scope="scope">
+              <el-button
+                type="text"
+                size="small"
+                @click="gouserdetail(scope.row.processNo,scope.row.name,scope.row.processNum,scope.row.taskId)"
+              >审核</el-button>
+            </template>
           </el-table-column>
         </el-table>
         <!-- 分页 -->
@@ -119,19 +112,19 @@ export default {
       tableData: [],
 
       searchform: {
-        userId:"",        //userId
-        enterpriseName:"",  //企业名称
-        legalName:"",       //法人姓名
-        beginDate:"",       //开始时间
-        endDate:"",       //截止时间
-        pageIndex: 1,     //初始页
-        pageSize: 50      //显示当前行的条数
+        userId: "", //userId
+        enterpriseName: "", //企业名称
+        legalName: "", //法人姓名
+        beginDate: "", //开始时间
+        endDate: "", //截止时间
+        pageIndex: 1, //初始页
+        pageSize: 50 //显示当前行的条数
       }
     };
   },
   // mounted只执行一次,在模板渲染成html后调用
   mounted() {
-    this.getlist()
+    this.getlist();
   },
 
   methods: {
@@ -164,75 +157,73 @@ export default {
     },
 
     // 点击用户名跳转至详情页
-    gouserdetail(processNo,name,processNum,taskId) {
-      if(name=='初审岗'){
+    gouserdetail(processNo, name, processNum, taskId) {
+      if (name == "初审岗") {
         this.$router.push({
-                path:"/mydaiban/chushendetail",
-                query:{
-                    processNo:processNo,
-                    processNum:processNum,
-                    taskId:taskId
-                    }
-                })
-      }else if(name=='终审岗'){
+          path: "/mydaiban/chushendetail",
+          query: {
+            processNo: processNo,
+            processNum: processNum,
+            taskId: taskId
+          }
+        });
+      } else if (name == "终审岗") {
         this.$router.push({
-                path:"/mydaiban/zhongshendetail",
-                query:{
-                    processNo:processNo,
-                    processNum:processNum,
-                    taskId:taskId
-                    }
-                })
-      }else if(name=='财务岗'){
+          path: "/mydaiban/zhongshendetail",
+          query: {
+            processNo: processNo,
+            processNum: processNum,
+            taskId: taskId
+          }
+        });
+      } else if (name == "财务岗") {
         this.$router.push({
-                path:"/mydaiban/caiwudetail",
-                query:{
-                    processNo:processNo,
-                    processNum:processNum,
-                    taskId:taskId
-                    }
-                })
-      }else if(name=='出纳岗'){
+          path: "/mydaiban/caiwudetail",
+          query: {
+            processNo: processNo,
+            processNum: processNum,
+            taskId: taskId
+          }
+        });
+      } else if (name == "出纳岗") {
         this.$router.push({
-                path:"/mydaiban/chunadetail",
-                query:{
-                    processNo:processNo,
-                    processNum:processNum,
-                    taskId:taskId
-                    }
-                })
+          path: "/mydaiban/chunadetail",
+          query: {
+            processNo: processNo,
+            processNum: processNum,
+            taskId: taskId
+          }
+        });
       }
     },
 
     // ajax异步数据交互：Vue 实例提供了 this.$http 服务可用于发送 HTTP 请求
     getlist() {
-      this.searchform.userId = sessionStorage.getItem("userId");//本地存储用户ID
+      this.searchform.userId = sessionStorage.getItem("userId"); //本地存储用户ID
       this.$axios({
-              method: 'post',
-              url: this.$store.state.domain +"/manage/task/fetch",
-              data: this.searchform,
-          })
-          .then(
-              response => {
-              if(response.data.code==0){
-                    this.tableData = response.data.detail.result.pageList;
-                    this.searchform.pageSize = response.data.detail.result.pageSize
-                    this.searchform.pageIndex = response.data.detail.result.pageIndex
-                    this.count = response.data.detail.result.count
-              }else{
-                  this.$message.error(response.data.msg);
-              }
-              }
-            ).catch(
-              error => {
-              this.$message({
-                    dangerouslyUseHTMLString: true,//表示提示的是html片段
-                    message: '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> '+
-                    error.response.data.message,
-                    type: "error"
-                  });
-              }
-            )
+        method: "post",
+        url: this.$store.state.domain + "/manage/task/fetch",
+        data: this.searchform
+      })
+        .then(response => {
+          if (response.data.code == 0) {
+            this.tableData = response.data.detail.result.pageList;
+            this.searchform.pageSize = response.data.detail.result.pageSize;
+            this.searchform.pageIndex = response.data.detail.result.pageIndex;
+            this.count = response.data.detail.result.count;
+          } else {
+            this.$message.error(response.data.msg);
+          }
+        })
+        .catch(error => {
+          this.$message({
+            dangerouslyUseHTMLString: true, //表示提示的是html片段
+            message:
+              '<svg class="icon" aria-hidden="true"> <use xlink:href="#icon-shengqi"></use> </svg> ' +
+              error.response.data.message,
+            type: "error"
+          });
+        });
     }
   },
 
