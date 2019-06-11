@@ -220,6 +220,10 @@ export default {
                     this.searchform.pageIndex = response.data.detail.pageIndex
                     this.count = response.data.detail.count
               }else{
+                if( response.data.detail == null || response.data.detail == '' ||  response.data.detail.resultList == null || response.data.detail.resultList == ""){
+                  this.tableData = []
+                  this.$message.error(response.data.msg);
+                }
                   this.$message.error(response.data.msg);
               }
               }
