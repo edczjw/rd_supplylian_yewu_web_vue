@@ -134,6 +134,8 @@ export default {
 
     // 搜索功能
     search() {
+      this.searchform.pageIndex = 1;
+      this.searchform.pageSize = 50;
       this.getlist();
     },
 

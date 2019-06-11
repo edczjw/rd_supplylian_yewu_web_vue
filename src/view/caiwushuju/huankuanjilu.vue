@@ -80,7 +80,7 @@
           <el-table-column prop="loanInitPrin" label="还款本金" align="center"></el-table-column>
           <el-table-column prop="loanInitInterest" label="还款利息" align="center"></el-table-column>
           <!-- <el-table-column prop="loanInitFee" label="还款服务费" align="center"></el-table-column> -->
-          <el-table-column prop="totalMoney" label="还款总额" align="center"></el-table-column>
+          <el-table-column prop="surplusPrincipal" label="还款总额" align="center"></el-table-column>
           <el-table-column prop="checkResult" label="审核结果" align="center">
             <template slot-scope="scope">
               <span v-if="scope.row.checkResult=='2'">通过</span>
@@ -138,6 +138,8 @@ export default {
   methods: {
     // 搜索功能
     search() {
+      this.searchform.pageIndex = 1;
+      this.searchform.pageSize = 50;
       this.getlist();
     },
 

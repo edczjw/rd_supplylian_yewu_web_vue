@@ -42,7 +42,7 @@
           <td>已还罚息</td>
           <td>{{detail.paidPenalty}}</td>
           <td>剩余未还罚息</td>
-          <td>{{detail.paidPenalty}}</td>
+          <td>{{detail.surplusPenalty}}</td>
         </tr>
 
         <tr>
