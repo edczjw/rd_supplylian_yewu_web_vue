@@ -5,7 +5,7 @@
           <el-form ref="setform" :model="this.setform" status-icon :rules="rules" label-width="155px" class="demo-ruleForm">
                         <el-row>
                         <el-col :span="12">
-                            <el-form-item label="账号：">
+                            <el-form-item label="账号id：">
                                 {{setform.uid}}
                             </el-form-item>
                         </el-col>
@@ -37,7 +37,7 @@
 
                         <el-row style="text-align:center">
                         <el-col :span="12">
-                            <el-button type="primary" plain @click="submit('setform')">确认修改</el-button>
+                            <el-button type="primary" @click="submit('setform')">确认修改</el-button>
                         </el-col>
                         </el-row>
                     </el-form>
@@ -153,15 +153,17 @@ export default {
  <style lang='less'>
 .content{
     
-  background-color: #fff;
+  background-color: rgb(243, 239, 239);
 }
 
 .changepw {
   padding: 50px 200px 50px 500px;
 
-  background-color: rgba(238, 238, 238, 0.973);
+  background-color: rgba(177, 221, 238, 0.541);
 }
-
+.el-input{
+  width: 210px !important;
+}
 
 
 

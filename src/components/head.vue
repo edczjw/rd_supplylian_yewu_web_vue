@@ -93,7 +93,7 @@ export default {
         //type: 'warning'
       }).then(() => {
         // sessionStorage.removeItem('user');
-        sessionStorage.setItem("name", 'str');//本地存储用户名
+        // sessionStorage.setItem("name", 'str');//本地存储用户名
         this.$router.push('/login');
       }).catch(() => {
 
