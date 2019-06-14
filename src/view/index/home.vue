@@ -10,19 +10,20 @@
                 用
                 </h1>
             <h2 class="animated zoomIn">
-                民
-                盛
-                小
-                贷
+                捷
+                易
+                融
                 </h2>
             <h3 class="animated zoomIn">
                 供
                 应
                 链
-                业
+                金
+                融
+                服
                 务
-                平
-                台
+                系
+                统
                 </h3>
         </div>
     </div>

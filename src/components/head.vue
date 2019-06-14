@@ -1,7 +1,7 @@
 <template>
   <div class="topBanner">
     <div class="side-tit">
-      <p class='left'><span>民盛小贷</span> 供应链金融服务业务平台
+      <p class='left'><span></span> 捷易融供应链金融服务系统
       </p>
     </div>
     <p class='right' @click="goBack" title="安全退出">
