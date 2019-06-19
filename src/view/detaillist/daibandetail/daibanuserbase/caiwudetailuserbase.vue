@@ -155,14 +155,25 @@
             </svg>企业财务信息栏</th>
         </tr>
         <ul class="tab-ul">
-          <li>
-            <label >近三年经营收入金额：</label><span v-if="willShow" >{{detail.threeYearIncome}}</span></li>
-          <li>
-            <label >近三年的利润金额：</label><span v-if="willShow" >{{detail.threeYearProfit}}</span></li>
-          <li>
-            <label >近三年的开票金额：</label><span v-if="willShow" >{{detail.threeYearInvoice}}</span> </li>
-          <li>
-            <label >近三年的纳税金额：</label><span v-if="willShow" >{{detail.threeYearTaxes}}</span></li>
+          <li style="width:100%" ><el-table :data="detail.threeYearDevelopmentSituation" border highlight-current-row size="mini">
+                  <el-table-column prop="nearlyYears" label="年份" align="center">
+                  </el-table-column>
+                  <el-table-column prop="incomeSum" label="经营收入金额（元）" align="center">                          
+                  </el-table-column>
+                  <el-table-column prop="profitSum" label="利润金额（元）" align="center">
+                  </el-table-column>
+                  <el-table-column prop="invoiceSum" label="开票金额（元）" align="center">
+                  </el-table-column>
+                  <el-table-column prop="taxesSum" label="纳税金额（元）" align="center">
+                  </el-table-column>
+              </el-table></li>
+              
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
           <li>
             <label >当前金融机构借贷余额：</label><span v-if="willShow" >{{detail.financialLendingBalance}}</span></li>
           <li>
@@ -193,11 +204,27 @@
         <ul class="tab-ul">
              
           <li>
-            <label >付款主体名称：</label><span v-if="willShow" >{{detail.paymentSubject}}</span></li>
+            <label >应收账款主体（债务人）全称：</label><span v-if="willShow" >{{detail.paymentSubject}}</span></li>
         <li>
             <label >开始合作期限：</label><span v-if="willShow" >{{detail.periodCooperation}}</span></li>
-        <li>
-            <label >过去两年交易额：</label><span v-if="willShow" >{{detail.turnover}}</span></li>
+         <li style="width:100%">
+          <el-table :data="detail.turnover" border highlight-current-row size="mini">
+                  <el-table-column prop="turnoverYear" label="年份" align="center">
+                     <template slot-scope="scope">
+                          <span v-if="willShow">{{scope.row.turnoverYear}}</span>
+                          <el-input v-else size="small" v-model="scope.row.turnoverYear" placeholder="请输入年份" ></el-input> 
+                      </template>
+                  </el-table-column>
+                  <el-table-column prop="turnoverSum" label="交易额（元）" align="center">   
+                    <template slot-scope="scope">
+                          <span v-if="willShow">{{scope.row.turnoverSum}}</span>
+                          <el-input v-else size="small" v-model="scope.row.turnoverSum" placeholder="请输入交易额（元）" ></el-input> 
+                      </template>                       
+                  </el-table-column>
+              </el-table></li>
+              <li></li>
+              <li></li>
+              <li></li>
         <li>
             <label >付款账期：</label><span v-if="willShow" >{{detail.paymentPeriod}}</span></li>
         <li>

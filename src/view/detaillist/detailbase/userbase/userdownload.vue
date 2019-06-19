@@ -12,9 +12,11 @@
         </tr>
 
         <ul>
-          <li>
-            <label>前十大合作客户名单及年交易额：</label>
-            <a :href='detail.cooperativeClients' download="前十大合作客户名单及年交易额.zip">下载</a>
+          <li >
+            <label>前十大合作客户名单及年交易额：</label><br>
+            <div v-for="(item,index) of detail.cooperativeClients" :key="index">
+            <a :href="item">{{item}}</a><br>
+            </div>
           </li>
           <li>
             <label>人力服务合同：</label>

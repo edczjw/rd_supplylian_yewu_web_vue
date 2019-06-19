@@ -159,18 +159,47 @@
             </svg>企业财务信息栏</th>
         </tr>
         <ul class="tab-ul">
-          <li>
-            <label >近三年经营收入金额：</label><span v-if="willShow" >{{detail.threeYearIncome}}</span>
-            <el-input v-else size="small" v-model="detail.threeYearIncome" placeholder="请输入内容" ></el-input> </li>
-          <li>
-            <label >近三年的利润金额：</label><span v-if="willShow" >{{detail.threeYearProfit}}</span>
-            <el-input v-else size="small" v-model="detail.threeYearProfit" placeholder="请输入内容" ></el-input> </li>
-          <li>
-            <label >近三年的开票金额：</label><span v-if="willShow" >{{detail.threeYearInvoice}}</span>
-            <el-input v-else size="small" v-model="detail.threeYearInvoice" placeholder="请输入内容" ></el-input> </li>
-          <li>
-            <label >近三年的纳税金额：</label><span v-if="willShow" >{{detail.threeYearTaxes}}</span>
-            <el-input v-else size="small" v-model="detail.threeYearTaxes" placeholder="请输入内容" ></el-input> </li>
+           <li style="width:100%">
+
+                <el-table :data="detail.threeYearDevelopmentSituation" border highlight-current-row size="mini">
+                  <el-table-column prop="nearlyYears" label="年份" align="center">
+                     <template slot-scope="scope">
+                          <span v-if="willShow">{{scope.row.nearlyYears}}</span>
+                          <el-input v-else size="small" v-model="scope.row.nearlyYears" placeholder="请输入年份" ></el-input> 
+                      </template>
+                  </el-table-column>
+                  <el-table-column prop="incomeSum" label="经营收入金额（元）" align="center">   
+                    <template slot-scope="scope">
+                          <span v-if="willShow">{{scope.row.incomeSum}}</span>
+                          <el-input v-else size="small" v-model="scope.row.incomeSum" placeholder="请输入经营收入金额（元）" ></el-input> 
+                      </template>                       
+                  </el-table-column>
+                  <el-table-column prop="profitSum" label="利润金额（元）" align="center">
+                    <template slot-scope="scope">
+                          <span v-if="willShow">{{scope.row.profitSum}}</span>
+                          <el-input v-else size="small" v-model="scope.row.profitSum" placeholder="请输入利润金额（元）" ></el-input> 
+                      </template> 
+                  </el-table-column>
+                  <el-table-column prop="invoiceSum" label="开票金额（元）" align="center">
+                    <template slot-scope="scope">
+                          <span v-if="willShow">{{scope.row.invoiceSum}}</span>
+                          <el-input v-else size="small" v-model="scope.row.invoiceSum" placeholder="请输入开票金额（元）" ></el-input> 
+                      </template> 
+                  </el-table-column>
+                  <el-table-column prop="taxesSum" label="纳税金额（元）" align="center">
+                    <template slot-scope="scope">
+                          <span v-if="willShow">{{scope.row.taxesSum}}</span>
+                          <el-input v-else size="small" v-model="scope.row.taxesSum" placeholder="请输入纳税金额（元）" ></el-input> 
+                      </template> 
+                  </el-table-column>
+              </el-table></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+
           <li>
             <label >当前金融机构借贷余额：</label><span v-if="willShow" >{{detail.financialLendingBalance}}</span>
             <el-input v-else size="small" v-model="detail.financialLendingBalance" placeholder="请输入内容" ></el-input> </li>
@@ -215,14 +244,29 @@
         <ul class="tab-ul">
              
           <li>
-            <label >付款主体名称：</label><span v-if="willShow" >{{detail.paymentSubject}}</span>
+            <label >应收账款主体（债务人）全称：</label><span v-if="willShow" >{{detail.paymentSubject}}</span>
             <el-input v-else size="small" v-model="detail.paymentSubject" placeholder="请输入内容" ></el-input> </li>
         <li>
             <label >开始合作期限：</label><span v-if="willShow" >{{detail.periodCooperation}}</span>
             <el-input v-else size="small" v-model="detail.periodCooperation" placeholder="请输入内容" ></el-input> </li>
-        <li>
-            <label >过去两年交易额：</label><span v-if="willShow" >{{detail.turnover}}</span>
-            <el-input v-else size="small" v-model="detail.turnover" placeholder="请输入内容" ></el-input> </li>
+             <li style="width:100%">
+          <el-table :data="detail.turnover" border highlight-current-row size="mini">
+                  <el-table-column prop="turnoverYear" label="年份" align="center">
+                     <template slot-scope="scope">
+                          <span v-if="willShow">{{scope.row.turnoverYear}}</span>
+                          <el-input v-else size="small" v-model="scope.row.turnoverYear" placeholder="请输入年份" ></el-input> 
+                      </template>
+                  </el-table-column>
+                  <el-table-column prop="turnoverSum" label="交易额（元）" align="center">   
+                    <template slot-scope="scope">
+                          <span v-if="willShow">{{scope.row.turnoverSum}}</span>
+                          <el-input v-else size="small" v-model="scope.row.turnoverSum" placeholder="请输入交易额（元）" ></el-input> 
+                      </template>                       
+                  </el-table-column>
+              </el-table></li>
+              <li></li>
+              <li></li>
+              <li></li>
         <li>
             <label >付款账期：</label><span v-if="willShow" >{{detail.paymentPeriod}}</span>
             <el-input v-else size="small" v-model="detail.paymentPeriod" placeholder="请输入内容" ></el-input> </li>

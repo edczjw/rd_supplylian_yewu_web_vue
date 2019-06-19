@@ -151,14 +151,26 @@
             </svg>企业财务信息栏</th>
         </tr>
         <ul class="place">
-          <li>
-            <label >近三年经营收入金额：</label>{{detail.threeYearIncome}}</li>
-          <li>
-            <label >近三年的利润金额：</label>{{detail.threeYearProfit}}</li>
-          <li>
-            <label >近三年的开票金额：</label>{{detail.threeYearInvoice}}</li>
-          <li>
-            <label >近三年的纳税金额：</label>{{detail.threeYearTaxes}}</li>
+          <li style="width:100%">
+                <el-table :data="detail.threeYearDevelopmentSituation" border highlight-current-row size="mini">
+                  <el-table-column prop="nearlyYears" label="年份" align="center">
+                  </el-table-column>
+                  <el-table-column prop="incomeSum" label="经营收入金额（元）" align="center">                          
+                  </el-table-column>
+                  <el-table-column prop="profitSum" label="利润金额（元）" align="center">
+                  </el-table-column>
+                  <el-table-column prop="invoiceSum" label="开票金额（元）" align="center">
+                  </el-table-column>
+                  <el-table-column prop="taxesSum" label="纳税金额（元）" align="center">
+                  </el-table-column>
+              </el-table></li>
+              
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
           <li>
             <label >当前金融机构借贷余额：</label>{{detail.financialLendingBalance}}</li>
           <li>
@@ -189,13 +201,22 @@
             </svg>人力薪资贷申请</th>
         </tr>
         <ul>
-             
+               
+        
           <li>
-            <label >付款主体名称：</label>{{detail.paymentSubject}}</li>
+            <label >应收账款主体（债务人）全称：</label>{{detail.paymentSubject}}</li>
         <li>
             <label >开始合作期限：</label>{{detail.periodCooperation}}</li>
-        <li>
-            <label >过去两年交易额：</label>{{detail.turnover}}</li>
+        <li  style="width:100%">
+           <el-table :data="detail.turnover" border highlight-current-row size="mini">
+              <el-table-column prop="turnoverYear" label="年份" align="center">
+              </el-table-column>
+              <el-table-column prop="turnoverSum" label="交易额（元）" align="center">
+              </el-table-column>
+          </el-table></li>  
+          <li></li>
+          <li></li>
+          <li></li>
         <li>
             <label >付款账期：</label>{{detail.paymentPeriod}}</li>
         <li>
@@ -212,6 +233,7 @@
             <label >本次借款质押的应收款金额：</label>{{detail.pledgedReceivables}}</li>
         <li>
             <label >本次借款担保方式：</label>{{detail.borrowingGuarantee}}</li>
+        
           
         </ul>
       </table>
