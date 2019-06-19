@@ -52,23 +52,27 @@
         <td></td>
         <td></td>
       </tr>
-
-      <tr>
-        <td>查看还款凭证</td>
-        <td colspan="1">
-          <a :href="detail.imagesUrl" target="_blank">预览</a>
-        </td>
-        <td></td>
-        <td></td>
-      </tr>
-
       <tr>
         <td>应还款日期</td>
         <td>{{detail.loanExpireDate}}</td>
         <td>客户实还款时间</td>
         <td>{{detail.repayTime}}</td>
       </tr>
+      
+      <tr>
+        <td>查看还款凭证</td>
+        <td colspan="3">        
+          <viewer :images="detail.imagesUrl"> 
+                <img
+                      v-for="(src,index) in detail.imagesUrl"
+                      :src="src"
+                      :key="index">
+          </viewer>
+        </td>
+      </tr>
     </table>
+     
+	</div>
   </div>
 </template>
 <script>
