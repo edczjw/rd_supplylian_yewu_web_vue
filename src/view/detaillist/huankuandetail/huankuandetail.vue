@@ -60,10 +60,10 @@
       </tr>
       
       <tr>
-        <td>查看还款凭证</td>
+        <td>查看还款凭证(可点击图片放大查看)</td>
         <td colspan="3">        
           <viewer :images="detail.imagesUrl"> 
-                <img
+                <img class="vie-img" title="点击图片放大"
                       v-for="(src,index) in detail.imagesUrl"
                       :src="src"
                       :key="index">
@@ -142,5 +142,11 @@ export default {
 .jititable td {
   height: 50px;
   width: 110px;
+}
+.vie-img{
+  width: 320px;
+  margin: 20px;
+  cursor: pointer;
+  height: 280px;
 }
 </style>
